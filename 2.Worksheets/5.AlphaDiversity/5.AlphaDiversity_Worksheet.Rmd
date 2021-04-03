@@ -473,22 +473,24 @@ a) Based on the output of `radfit()` and plotting above, discuss which model bes
 b) Can we make any inferences about the forces, processes, and/or mechanisms influencing the structure of our system, e.g., an ecological community?
 
 > ***Answer 8a***:  
+The Mandelbrot model seems to best fit the rank-abundance curve using both the AIC and the BIC metrics
 > ***Answer 8b***:
-
+While I can't think of any direct inferences that can be made from this model fitting the data best, I can infer that whatever influences are determining the ecological community has resulted in a community similar to the preemption niche community (each next abundant taxa having a progressively lower abundance) but with a longer low abundance tail that would be expected from that sort of a community. Suggesting perhapse a unequal distribution of resources based on taxa abundance where the more abundant taxa don't consume their a proportional percent of the resources, allowing for rarer species to share and exist of the remainder of the resources. 
 
 ***Question 9***: Answer the following questions about the preemption model:
 a.  What does the preemption model assume about the relationship between total abundance (*N*) and total resources that can be preempted?
 b.  Why does the niche preemption model look like a straight line in the RAD plot?
 
 > ***Answer 10a***:  
+The Niche Preemption model assumes that the organism with the highest abundance is also the organism that consumes a greater amount of the shared resouces proportionate to their comparative abundance.
 > ***Answer 10b***:
+Because from its assumptions it projects that abundance across taxa will be a steady decline until it reaches the final taxa in the sample with an N ~ 1.
 
 
-
-***Question 10***: Why is it important to account for the number of parameters a model uses when judging how well it explains a given set of data?
+***Question 11***: Why is it important to account for the number of parameters a model uses when judging how well it explains a given set of data?
 
 > ***Answer 11***:
-
+This is important because over-parameterization of the model realtive to the amount of data in the sample may result in a model with a high fit but may also result in loss of reletavization of the model in explaining any further data or the system as a whole. 
 
 ## SYNTHESIS
 
@@ -496,7 +498,14 @@ b.  Why does the niche preemption model look like a straight line in the RAD plo
 Assuming a finite community, calculate Simpson's D, 1 - D, and Simpson's inverse (i.e. 1/D) for `site 1` of the BCI site-by-species matrix. 
 
 ```{r}
+site1simpD <- SimpD(site1)
+print(site1simpD)
 
+site1simpDminus <- 1 - SimpD(site1)
+print(site1simpDminus)
+
+site1invsimpD <- 1/SimpD(site1)
+print(site1invsimpD)
 ```
 
 
@@ -506,7 +515,15 @@ In fact, the rank-abundance curve and the frequency distribution are the two mos
 To address this homework question, use the R function **hist()** to plot the frequency distribution for `site 1` of the BCI site-by-species matrix, and describe the general pattern you see.
 
 ```{r}
+# Transposing site 1 to long form
+site1.t <- t(site1)
 
+# Filtering the data to remove all 0 abundances
+site1.tz <- site1.t[apply(site1.t, 1, function(row) all(row != 0)),]
+
+# Forming a histogram with remaining values
+h <- hist(site1.tz, breaks = 25)
+text(h$mids, h$counts, labels = h$counts, adj = c(.5, -.5))
 ```
 
 
@@ -518,9 +535,18 @@ How many species are there in the entire site-by-species matrix?
 Any other interesting observations based on what you learned this week?
 
 ```{r}
+#Importing data
+alpine <- read.csv("data/genus_table.csv")
 
+#Quantifying sites
+length(alpine)
+
+#Counting unique genera
+length(unique(alpine$Genus))
 ```
-
+> "length" returns 57, meaning that there are 57 total rows, but since there is a row for Genus names and another for a control sample, there are a total of 55 sites (counting sites with .2 after them but I don't yet know what these markers mean).
+"length" combined with "unique" lets me know that there are a total of 113 unique genera identified in the data (genera is the highest sensitivity reported) and by looking at the data we can see that are many "unknown" classified genera.
+Interesting, by building a rarefaction curve of my samples (not shown here) I can already see that there are 4 or 5 samples with an exteremely low number of total reads, too low to be rarefied to so they will most likely be discluded from the deeper analysis. 
 
 ## SUBMITTING YOUR ASSIGNMENT
 Use Knitr to create a PDF of your completed 5.AlphaDiversity_Worksheet.Rmd document, push it to GitHub, and create a pull request.
