@@ -1,6 +1,6 @@
 ---
 title: '7\. Data wrangling with simulated communitites'
-author: 'Z620: Quantitative Biodiversity, Indiana University'
+author: 'Joshua Jones: Z620 : Quantitative Biodiversity, Indiana University'
 header-includes:
    - \usepackage{array}
 output: pdf_document
@@ -20,7 +20,7 @@ We will learn about these tools while also gaining exposure to R packages that a
 ```{r, results = 'hide'}
 rm(list=ls()) 
 getwd() 
-setwd("~/GitHub/QB-2021/1.Handouts/7.ControlStructures")
+#setwd("~/GitHub/QB-2021/1.Handouts/7.ControlStructures")
 ```
 
 ## 2) SIMULATE BIODIVERSITY 
@@ -189,7 +189,7 @@ comm_mat1_apply <- (t(comm_mat1_apply))
 
 ### C. Summarize diversity data with `tidyverse`
 
-Another popular approach for data wrangling is **`tidyverse`**, which is a collection R packages.
+Another popular approach for data wrangling is **`tidyverse`**, which is a collection of R packages.
 **`dplyr`** contains a set of functions that manipulates data frames.
 **`tidyr`** allow one to pivot, nest, and separate data in various ways.
 And **`ggplot2`** is an alternative to plotting in base R that was designed to interface with `tidyverse`. 
@@ -241,18 +241,128 @@ But the SAR is also influenced by biological phenomena including dispersal limit
 Feel free to choose different values for the the function's arguments. 
 Create an SAR plot and calculate the corresponding *z*-value. 
 
+```{r, fig.show='hide'}
+
+#Making a string with all areas to be covered in the analysis
+areas <- c(1:400)
+
+#Making data frame to store results
+species_area <- matrix(ncol = 2, nrow = 0)
+species_area <- as.data.frame(species_area)
+colnames(species_area) <- c("Area","Species")
+
+#Running analysis for all areas from the plot
+for (i in areas){
+  
+  #Randomly generate community with specified diversity
+  com <- sim_poisson_community(s_pool = 100, n_sim = 1000, sad_type = "lnorm", sad_coef = list("meanlog" = 2,"sdlog" = 1), xrange = c(0,20), yrange = c(0,20))
+  
+  #Randomly placing plot into community of specified area to survey
+  com_mat <- sample_quadrats(com, n_quadrats = 1, quadrat_area = i, method = "random", avoid_overlap = T)
+  
+  #Create dataframe to store area and species data
+  temp <- as.data.frame(matrix(ncol = 2, nrow = 1)) 
+  
+  temp[,1] <- i
+  temp[,2] <- specnumber(com_mat$spec_dat) 
+  
+  #Insert new data into dataset
+  species_area[(nrow(species_area) + 1), ] <- temp
+  if (i >= 400) {
+    break
+  }
+}
+lmZ1 <- lm(Area ~ Species, species_area)
+anvZ1 <- anova(lmZ1)
+summary(lmZ1)
+```
+> .6875
+
+```{r}
+library(ggplot2)
+SAR1 <- ggplot(species_area, mapping=aes(x=Area, y=Species))
+SAR1 <- SAR1 + geom_point()
+SAR1 <- SAR1 + geom_smooth(method="lm")
+print(SAR1)
+```
+
 2. The `sim_poisson_community`function simulates species that have a random spatial distribution.
 However, in nature, this is rarely the case. 
 Species often have patchy distributions, which can be simulated in `mobsim` using the the `sim_thomas_community` function.
 Include a plot of the patchy distribution using examples above.
 Then, create another SAR plot from the patchy community and compare its *z*-values to that of the random distribution. 
 
+```{r, fig.show='hide'}
+#Making a string with all areas to be covered in the analysis
+areas <- c(1:400)
+
+#Making data frame to store results
+species_area2 <- matrix(ncol = 2, nrow = 0)
+species_area2 <- as.data.frame(species_area2)
+colnames(species_area2) <- c("Area","Species")
+
+#Running analysis for all areas from the plot
+for (i in areas){
+  
+  #Randomly generate community with specified diversity
+  com <- sim_thomas_community(s_pool = 100, n_sim = 1000, sad_type = "lnorm", sad_coef = list("meanlog" = 2,"sdlog" = 1), xrange = c(0,20), yrange = c(0,20))
+  
+  #Randomly placing plot into community of specified area to survey
+  com_mat <- sample_quadrats(com, n_quadrats = 1, quadrat_area = i, method = "random", avoid_overlap = T)
+  
+  #Create dataframe to store area and species data
+  temp <- as.data.frame(matrix(ncol = 2, nrow = 1)) 
+  
+  temp[,1] <- i
+  temp[,2] <- specnumber(com_mat$spec_dat) 
+  
+  #Insert new data into dataset
+  species_area2[(nrow(species_area2) + 1), ] <- temp
+  if (i >= 400) {
+    break
+  }
+}
+lmZ2 <- lm(Area ~ Species, species_area2)
+anvZ2 <- anova(lmZ2)
+summary(lmZ2)
+```
+
+> .8605 
+
+```{r}
+SAR2 <- ggplot(species_area2, mapping=aes(x=Area, y=Species))
+SAR2 <- SAR2 + geom_point()
+SAR2 <- SAR2 + geom_smooth(method="lm")
+print(SAR2)
+```
+
 3. Explain the SAR patterns from your simulations along with any observed differences based on how we have simulated the communities.
 Are there any features that you might include with a more elaborate simulation? 
 Describe. 
+
+```{r}
+# Generating a figure showing both distributions
+SAR1v2 <- ggplot(species_area, mapping=aes(x=Area, y=Species, color="blue"))
+SAR1v2 <- SAR1v2 + geom_point()
+SAR1v2 <- SAR1v2 + geom_smooth(method="lm")
+SAR1v2 <- SAR1v2 + geom_point(species_area2, mapping=aes(x=Area, y=Species, color = "red"))
+SAR1v2 <- SAR1v2 + geom_smooth(species_area2, mapping=aes(x=Area, y=Species, color = "red"), method="lm")
+SAR1v2 <- SAR1v2 + scale_color_manual(values=c("#999999", "#E69F00"), 
+                       name="Distribution",
+                       labels=c("Poisson", "Thomas"))
+print(SAR1v2)
+```
+
+> Both SARs show an increase in species detected as the area surveyed increases, with the Thomas showing less species in smaller plots and increasing at a steeper rate as sampling range increases. This makes sense as the Poisson has each species randomly distributed throughout the area with no relationship to conspecifics so the first plot will have a somewhat random number of species that increases throughout survey increases while Poisson has species in clusters meaning they inhabit less of the space so one small survey won't interact with as many different species than in the Poissan. 
+In future simulations I think it would be interesting to have a simulations where some species can't inhabit the same space so we could see how species spread across space when there is a spacial resource that can be monopolized. Another interesting variable would be having variations in resources, or species prevalence across the area, as a way to simulate how species colonize habitats unequally based on niche space
+
 
 ## SUBMITTING YOUR ASSIGNMENT
 Use Knitr to create a PDF of your completed 7.Wrangling_Worksheet.Rmd document, push it to GitHub, and create a pull request.
 Please make sure your updated repo include both the pdf and RMarkdown files.
 
-Unless otherwise noted, this assignment is due on **Wednesday, April 9^th^, 2021 at 09:00 AM**.
+Unless otherwise noted, this assignment is due on **Friday, April 9^th^, 2021 at 09:00 AM**.
+
+```{r}
+sessionInfo()
+```
