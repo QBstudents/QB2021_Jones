@@ -337,19 +337,37 @@ row.names(comm_mat2$xy_dat) <- quads
 row.names(comm_mat2$spec_dat) <- quads
 ```
 
-1) Compare the average pairwise similarity among subsamples in site 1 (random spatial distribution) to the average pairswise similarity among subsamples in site 2 (patchy spatial distribution). 
+1) Compare the average pairwise similarity among subsamples in site 1 (random spatial distribution) to the average pairwise similarity among subsamples in site 2 (patchy spatial distribution). 
 Use a t-test to determine whether compositional similarity was affected by the spatial distribution. 
 Finally, compare the compositional similarity of site 1 and site 2 to the source community?
 
 ```{r}
+#Distance Matrix for random distributions
 #Importing site-by-species matrix from list
-randdots <- doubs$fish
+randdots <- comm_mat1$spec_dat
 
-#Removing all rows with a total of 0 total observations
-randdots <-fish[rowSums(fish !=0) > 0,]
+#Removing all Columns with a total of 0 total observations
+randdots <- randdots[,colSums(randdots !=0) > 0]
 
 #Constructing a resemblance matrix based on Bray-Curtis Distance
-randdots <- vegdist(fish, method = "bray")
+randdots <- vegdist(randdots, method = "bray")
+print(randdots)
+
+#Distance Matrix for patchy distributions
+patchdots <- comm_mat2$spec_dat
+
+#Removing all rows with a total of 0 total observations
+patchdots <- patchdots[,colSums(patchdots !=0) > 0]
+
+#Constructing a resemblance matrix based on Bray-Curtis Distance
+patchdots <- vegdist(patchdots, method = "bray")
+print(patchdots)
+```
+```{r}
+#Fusing matrices into dataframe
+library(reshape2)
+
+melt(patchdots)
 ```
 
 
