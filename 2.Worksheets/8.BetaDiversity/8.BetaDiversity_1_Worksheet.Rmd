@@ -1,6 +1,6 @@
 ---
 title: '8\. Worksheet: Among Site (Beta) Diversity -- Part 1'
-author: "Student Name; Z620: Quantitative Biodiversity, Indiana University"
+author: "Joshua Jones; Z620: Quantitative Biodiversity, Indiana University"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: pdf_document
 geometry: margin=2.54cm
@@ -308,6 +308,11 @@ library(mobsim)
 
 
 ```{r, fig.show='hide'}
+#Make plot of whole community
+com <- sim_poisson_community(s_pool = 25, n_sim = 1000, sad_type = "lnorm", sad_coef = list("meanlog" = 2,"sdlog" = 1))
+comm_mat <- sample_quadrats(com, n_quadrats = 1, quadrat_area = .9, method = "random", avoid_overlap = T)
+
+
 # simulate community with `mobsim`
 com1 <- sim_poisson_community(s_pool = 25, n_sim = 1000, sad_type = "lnorm", 
         sad_coef = list("meanlog" = 2, "sdlog" = 1))
@@ -317,8 +322,8 @@ comm_mat1 <- sample_quadrats(com1, n_quadrats = 10, quadrat_area = 0.01,
              method = "random", avoid_overlap = T)  
 
 # Rename sampled areas as quadrats
-quads <- c("quad1", "quad2", "quad3", "quad4", "quad5", "quad6", "quad7",
-           "quad8", "quad9", "quad10")
+quads <- c("site1", "site2", "site3", "site4", "site5", "site6", "site7",
+           "site8", "site9", "site10")
 row.names(comm_mat1$xy_dat) <- quads
 row.names(comm_mat1$spec_dat) <- quads
 
@@ -331,8 +336,8 @@ comm_mat2 <- sample_quadrats(com2, n_quadrats = 10, quadrat_area = 0.01,
              method = "random", avoid_overlap = T)  
 
 # Rename sampled areas as quadrats
-quads <- c("quad1", "quad2", "quad3", "quad4", "quad5", "quad6", "quad7",
-           "quad8", "quad9", "quad10")
+quads <- c("site1", "site2", "site3", "site4", "site5", "site6", "site7",
+           "site8", "site9", "site10")
 row.names(comm_mat2$xy_dat) <- quads
 row.names(comm_mat2$spec_dat) <- quads
 ```
@@ -364,12 +369,82 @@ patchdots <- vegdist(patchdots, method = "bray")
 print(patchdots)
 ```
 ```{r}
+####################################################################################
+#This section is from me not knowing that t.test could take both seperate matrices as inputs, please acknowledge but disregard
+####################################################################################
 #Fusing matrices into dataframe
-library(reshape2)
+#distance <- as.matrix(patchdots)
+#distance <- as.data.frame(as.table(distance))
+#distance2 <- as.matrix(randdots)
+#distance2 <- as.data.frame(as.table(distance2))
 
-melt(patchdots)
+#for (i in 1:nrow(distance)){
+#  distance[i,4] <- "Patchy"
+#  distance2[i,4] <- "Random"
+#}
+
+#names(distance) <- c("First Site", "Second Site", "Beta", "Distribution")
+#names(distance2) <- c("First Site", "Second Site", "Beta", "Distribution")
+
+#distances <- rbind(distance, distance2)
+
+#t <- t.test(Distribution ~ Beta, data = distances)
+#with(distances, t.test(Beta[Distribution == Patchy], Beta[Distribution == Random]))
+```
+
+
+```{r}
+t.test(patchdots,randdots)
+```
+
+```{r}
+whole <- comm_mat$spec_dat
+randdots2 <- comm_mat1$spec_dat
+
+#move add site 1 and 2 to dataframe with the whole area samples (for some reason site one is site 11 in here)
+whole <- rbind(whole, randdots2[c(1,2),])
+
+#bray-curtis measurements across these three sites
+whole <- vegdist(whole, method = "bray")
+print(whole)
 ```
 
 
 2) Create a cluster diagram or ordination using your simulated data. 
 Are there any visual trends that would suggest a difference in composition between site 1 and site 2? Describe.
+```{r}
+randdots.pcoa <- cmdscale(randdots, eig = TRUE, k = 3)
+
+explainvar1 <- round(randdots.pcoa$eig[1]/sum(randdots.pcoa$eig), 3) * 100
+explainvar2 <- round(randdots.pcoa$eig[2]/sum(randdots.pcoa$eig), 3) * 100
+explainvar3 <- round(randdots.pcoa$eig[3]/sum(randdots.pcoa$eig), 3) * 100
+sum.eig <- sum(explainvar1, explainvar2, explainvar3)
+
+#Define Plot Parameters
+par(mar = c(5,5,1,2), .1)
+
+#Initiate Plot
+plot(randdots.pcoa$points[,1], randdots.pcoa$points[,2], ylim = c(-.2, .7),
+     xlab = paste("PCoA 1 (", explainvar1, "%)", sep = ""),
+     ylab = paste("PCoA 2 (", explainvar2, "%)", sep = ""),
+     pch = 16, cex = 2.0, type = "n", cex.lab = 1.5, cex.axis = 1.2, axes = FALSE)
+
+#Add axis 
+axis(side = 1, labels = T, lwd.ticks = 2, cex.axis = 1.2, las = 1)
+axis(side = 2, labels = T, lwd.ticks = 2, cex.axis = 1.2, las = 1)
+abline(h = 0, v = 0, lty = 3)
+box(lwd = 2)
+
+#Add Points & Labels
+points(randdots.pcoa$points[,1], randdots.pcoa$points[,2],
+       pch = 19, cex = 3, bg = "gray", col = "gray")
+text(randdots.pcoa$points[,1], randdots.pcoa$points[,2],
+     labels = row.names(randdots.pcoa$points))
+```
+
+>Are there any visual trends that would suggest a difference in composition between site 1 and site 2?
+No, they seem relatively close together in PCoA space, but since they're random each time the script is run, they are sometimes very far apart.
+
+```{r}
+sessionInfo()
+```
