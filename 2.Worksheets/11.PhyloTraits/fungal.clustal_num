@@ -1,0 +1,62 @@
+CLUSTAL O(1.2.4) multiple sequence alignment
+
+
+Ramaria.gracilis              CAGTA------TGATTAGGGGGGCTTGTCGCTGG------CTTCGGCATGTGCGCGCCCC	48
+Phialocephala.fortinii        ---------------CAAGTGAGGCTACCGAAC-------------GCTGGAAACAGC--	30
+Utharomyces.epallocaulus      -ATCATTAAATAAA--------------------------------CATGTTCATTCT--	25
+Cryptococcus.gattii           --GTAGAGAATAC---------TGG-----------------------ACTTC--GGT--	22
+Sebacina.aff.incrustans       -TTGATGTTATAAACCCGT---------------------------CATCTTCAGT----	28
+Russula.cremoricolor          --TCGTAAAACCGAGGTGCGAGGGCTGTCGCTGA--------------------------	32
+Tomentella.hjortstamiana      -----CCGAATCGTCAAACACGGGTTGTCGCTGGCCCTCAACGGGGCACGTGCACGCT--	53
+Mycena.sp                     -----TTGAATACGATTGGTACTGA---TGCTGGCTCTTCACTGAGCATGTGC---TC--	47
+Cortinarius.rickenianus       ----ATGAAATAAACCTGATAAGTTGCTGCTGGTTCTCTAGGGAGCAATGTGCACACT--	54
+Galerina.laevis               CATTATTGAATAAACTTGATGTGGTTGTTGCTGGCTCTCTTGGGGGTATGTGCACACT--	58
+                                                                                          
+
+Ramaria.gracilis              TCGCCTTCTATTCCATACACACCTGTGCACCTATGGGGCGAGCGTCTCCCTTGATTGGAG	108
+Phialocephala.fortinii        GGTTAGGAGCTTACACCCACCCGTGTTTACATACTATTGTT--GCT--------------	74
+Utharomyces.epallocaulus      CAAGAT--TCT-----TTGGGTTTGGACACGCTAGATCGCGTTATACTGTGAAATCTCAT	78
+Cryptococcus.gattii           CCATTTATCTACCCATCTACACCTGTGAACTGTTTATGTGCTTC----------------	66
+Sebacina.aff.incrustans       --------GCTGGCTTTCTTGCATGTGCACGTTGGGGCGGCATTATTCATCTCACAACCC	80
+Russula.cremoricolor          --------CCTTTTCTTTTTGGTCGTGCACGCCTGAGTGCTCTCACACAATCCATCTCAC	84
+Tomentella.hjortstamiana      CTGTTTACACATCCACTCACACCTGTGCACCCCCTGTAGTTCTGTGGTTTGGAGGATCTC	113
+Mycena.sp                     GTCCAT--CTATTTATCTTCTCTTGTGCACATCCTGTAGTCTTGAATTGAAACCCCTCGC	105
+Cortinarius.rickenianus       TGTCAT--CTTTGTATCTTCACCTGTGCACCTTTTGTAGATCTGACTATCTCTCTGAATG	112
+Galerina.laevis               CATCGT--CTTTATATCTCCACCTGTGTACCTTTTGTAGACCTGAATAGTTCATTTTCTG	116
+                                                      *   **                              
+
+Ramaria.gracilis              CCGTCC--------TGCGCGAGCGGG-GCTGAGGCGCTCCCT------------------	141
+Phialocephala.fortinii        -------------TTGGCGGGCCGTGGCCTCCACTGCGGGCTCTGCTCGTGTGTGCCCGC	121
+Utharomyces.epallocaulus      AGTGAAACA-----AAAGAATCGCTG------ACCGCGTTTTTT-----TTGTGTCACGT	122
+Cryptococcus.gattii           ------------------------------------------------------------	66
+Sebacina.aff.incrustans       CCTTTGTGAAC----------T------------CCTGGCCTTTGCTGGTTTCGACTGGC	118
+Russula.cremoricolor          CCCTTGTGCAC--CACCGCGTGGGTC--------CCTCTCTGGCTAGTCCCGAGGGGGGC	134
+Tomentella.hjortstamiana      ATCTTCC------------------------------------------TTCCATGGCTC	131
+Mycena.sp                     AGTCAAATGCGGTTTGGGAGGTTGGG------CGNGAGCCCTCCTTCTGCTTCTTCAAGG	159
+Cortinarius.rickenianus       CTTTATTAGTA--CTCAGGATTGAGA--ATTGACTTTTGTCTCTTCTTATATTTTCAGGT	168
+Galerina.laevis               AGGCAACTCAGTTTTGAGGATTGCTGCCTTTAAAAGTCAGCTCTCTTTGTATATTCAGGC	176
+                                                                                          
+
+Ramaria.gracilis              ----CTTTTACTACAGCCG-----------TCTTAACGCATGTCTTGCGC----TCCACG	182
+Phialocephala.fortinii        CAGAGGAC-----CAAACT-----C-----------TGAATGTTAGTGAT------GTCT	154
+Utharomyces.epallocaulus      TGACCATATTATACATT-------ATTTCTCCTTGCAGAAAAA--TTTTTAAATAATTGT	173
+Cryptococcus.gattii           GGCACGTTTTACACAAACTTCTAAATGTAA------TGAATGTAATCTTA---------T	111
+Sebacina.aff.incrustans       AGAGGAATTTACACAAACT-----------------CGAATGTAATGAAATGCTTGTTGT	161
+Russula.cremoricolor          TTGCGTTTTCACACAAAC------TTGAAGTAGTGTAGAATGTCTTTTTTTGCGATAACA	188
+Tomentella.hjortstamiana      CTACGTCTTTACACACACGCCGTAGTGATGTCTCGTGGGATGTTTTTCTG---CGTTTAA	188
+Mycena.sp                     CTATGTTTTCATATACACTAT--AAAGTTAC-----AGAATGTCTTTTAACGATTGTGCT	212
+Cortinarius.rickenianus       CTATGTTTCTTCATCTACCCC--AATGTATGTTTATAGAATGTAATTAATGGGCCTTTGT	226
+Galerina.laevis               CTATGTTT-TTCATATACTCC--AATGTATGTAAC-AGAATGT--ATTAATGGCACTTGT	230
+                                                                   * *                    
+
+Ramaria.gracilis              GAGCGAAA------------TGTTAATAC	199
+Phialocephala.fortinii        GAGTACTA----TC---TAATAGTTA---	173
+Utharomyces.epallocaulus      AACAATAGACCTAAAAAATCTATTAAAAA	202
+Cryptococcus.gattii           TATAACAA---------------------	119
+Sebacina.aff.incrustans       GCGTAAGCACTACTATATAC---------	181
+Russula.cremoricolor          TGCAATCAA---TA---------------	199
+Tomentella.hjortstamiana      CGCAATACA--ATAC--------------	201
+Mycena.sp                     AGTCGCAGTCATTAAACCTAT--------	233
+Cortinarius.rickenianus       GCCTATAAACTT-----------------	238
+Galerina.laevis               GCCTATAAACTATATACAAC---------	250
+                                                           
