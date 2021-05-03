@@ -1,6 +1,6 @@
 ---
 title: '12\.Phylogenetic Diversity - Communities'
-author: "Student Name; Z620: Quantitative Biodiversity, Indiana University"
+author: "Joshua Jones; Z620: Quantitative Biodiversity, Indiana University"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: pdf_document
 geometry: margin=2.54cm
@@ -45,8 +45,25 @@ In the R code chunk below, provide the code to:
 5. load the required R source file.
 
 ```{r}
+# Clearning Environment
+rm(list = ls())
+dev.off ()
 
+# Setting Working Directory
+getwd()
+setwd("C:/Users/joshu/quantbio/QB2021_Jones/2.Worksheets/12.PhyloCom/")
 
+# Installing and Loading Packages
+package.list <- c('ape', 'seqinr', 'picante', 'vegan', 'fossil', 'reshape', 'simba')
+for (package in package.list){
+  if (!require(package, character.only = TRUE, quietly = TRUE)) {
+    install.packages(package)
+    library(package,character.only = TRUE)
+  }
+}
+
+# Loading the required R source file
+source("./bin/MothurTools.R")
 ```
 
 ## 2) DESCRIPTION OF DATA
@@ -71,8 +88,22 @@ In the R code chunk below, do the following:
 6. load the taxonomic data using the `read.tax()` function from the source-code file.
 
 ```{r}
+# Loading Environment and site-by-species data
+env <- na.omit(read.table("data/20130801_PondDataMod.csv", sep = ",", header = TRUE))
+comm <- read.otu(shared = "./data/INPonds.final.rdp.shared", cutoff = 1)
 
+# Subsetting data to include only DNA-based identification of bacteria
+comm <- comm[grep("*-DNA", rownames(comm)), ]
 
+# Renaming Sites
+rownames(comm) <- gsub("\\-DNA", "", rownames(comm))
+rownames(comm) <- gsub("\\_", "", rownames(comm))
+
+# Removing Unnecessary OTUs
+comm <- comm[, colSums(comm) > 0]
+
+# Loading taxonomic data
+tax <- read.tax(taxonomy = "./data/INPonds.final.rdp.1.cons.taxonomy")
 ```
 
 Next, in the R code chunk below, do the following:  
@@ -87,8 +118,36 @@ Next, in the R code chunk below, do the following:
 9. plot the rooted tree.
 
 ```{r}
+# Importing alignment file
+ponds.cons <- read.alignment(file = "./data/INPonds.final.rdp.1.rep.fasta", format = "fasta")
 
+# Renaming the OTUs 
+ponds.cons$nam <- gsub("\\|.*?\t", "", gsub("^.*?\t", "", ponds.cons$name))
 
+# Importing outgroup "Methanosarcina"
+outgroup <- read.alignment(file = "./data/methanosarcina.fasta", format = "fasta")
+
+# Converting FASTA files into the DNAbin format and combining 
+DNAbin <- rbind(as.DNAbin(outgroup), as.DNAbin(ponds.cons))
+
+# Visualize the sequence alignment
+#image.DNAbin(DNAbin, show.labels = T, cex.lab = .5, las = 1)
+
+# Making a Distance Matrix
+seq.dist.jc <- dist.dna(DNAbin, model = "JC", pairwise.deletion = FALSE)
+
+# Making a neighbor joining tree
+phy.all <- bionj(seq.dist.jc)
+
+# Remove any tips that are not in community data set
+phy <- drop.tip(phy.all, phy.all$tip.label[!phy.all$tip.label %in% c(colnames(comm), "Methanosarcina")])
+
+# Plotting Rooted tree
+outgroup <- match("Methanosarcina", phy$tip.label)
+phy <- root(phy, outgroup, resolve.root = TRUE)
+
+par(mar = c(1,1,2,1) + .1)
+plot.phylo(phy, main = "Neighbor Joining Tree", "phylogram", show.tip.label = FALSE, use.edge.length = FALSE, direction = "right", cex = .6, label.offset = 1)
 ```
 
 ## 4) PHYLOGENETIC ALPHA DIVERSITY
