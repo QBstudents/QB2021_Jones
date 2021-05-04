@@ -579,17 +579,25 @@ If not, why?
 Is there anything you could do differently that would improve your tree, especially with regard to future analyses done by your team?
 
 ```{r}
-fungal.alignment <- read.alignment(file = "./fungal.clustal_num", format = "fasta")
+fungal.aln <- read.alignment(file = "./fungal2.aln.fasta", format = "fasta")
 
-fungal.alignment <- read.alignment("fungal.fasta", format = "FASTA")
+f.DNAbin <- as.DNAbin(fungal.aln)
 
-#Converting alignment into a DNAbin object
-f.DNAbin <- as.DNAbin(fungal.alignment)
+image.DNAbin(f.DNAbin)
 
-#Visualizing
-image.DNAbin(f.DNAbin, cex.lab = .50)
+window <- f.DNAbin[,300:450]
+
+image.DNAbin(window)
+
+f.seq.dist <- dist.dna(window, model = "T92", pairwise.deletion = FALSE)
+f.nj.tree <- bionj(f.seq.dist)
+
+par(mar = c(1,1,2,1) + .1)
+plot.phylo(f.nj.tree, main = "Fungal Neighbor Joining Tree", "phylogram", use.edge.length = FALSE, direction ="right", cex = .6, label.offset = 1)
+add.scale.bar(cex = .7)
 ```
 
 
-
-
+> Without going indepth there are a few clear irregularities between this tree and the tree expected from the evolutionary history of these organisms. As one example, R. gracilis, R. cremoricolor, and S. incrustans are within the same class and therefore should be more closer related to each other than to U. epallocaulus, which is in a different division. 
+These, and other, irregularities could be solved with a more complex program for topological determinant, or perhapse a more difinitive DNA section for determining distance. I originally attempted to use ITS1 for the alignment but the quality was far too bad, so I switched to using the entire rRNA, ITS1, and ITS2 region, where there was a good section that comprised a mix of what I think was the ITS2 and RNA regions.
+However, this isn't a problem for our project since I've decided to not use phylogeny for our analysis of the fungal communities. Mainly because it would require accessing and working with the raw sequences, but also because I don't know the functional relevance of relatedness in fungus (ie, does relatedness have any functional relevance in related fungi)
