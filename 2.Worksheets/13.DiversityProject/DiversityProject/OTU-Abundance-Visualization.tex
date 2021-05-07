@@ -1,0 +1,1219 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Diversity Project Abundances},
+  pdfauthor={Joshua},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Diversity Project Abundances}
+\author{Joshua}
+\date{4/1/2021}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list=}\FunctionTok{ls}\NormalTok{())}
+\FunctionTok{dev.off}\NormalTok{ ()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## null device 
+##           1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{package.list }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}vegan\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}data.table\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}reshape2\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ggplot2\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ape\textquotesingle{}}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (package }\ControlFlowTok{in}\NormalTok{ package.list)\{}
+  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\FunctionTok{require}\NormalTok{(package, }\AttributeTok{character.only =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{quietly =} \ConstantTok{TRUE}\NormalTok{)) \{}
+    \FunctionTok{install.packages}\NormalTok{(package)}
+    \FunctionTok{library}\NormalTok{(package,}\AttributeTok{character.only =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'vegan' was built under R version 4.0.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'permute' was built under R version 4.0.4
+\end{verbatim}
+
+\begin{verbatim}
+## This is vegan 2.5-7
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'data.table' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'reshape2' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'reshape2'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:data.table':
+## 
+##     dcast, melt
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'ape' was built under R version 4.0.5
+\end{verbatim}
+
+\hypertarget{importing-site-species-data-into-r}{%
+\section{Importing site-species data into
+R}\label{importing-site-species-data-into-r}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{site\_species }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"alpine\_ridge\_data/OTU\_table.csv"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{site\_species.t }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(site\_species)}
+\end{Highlighting}
+\end{Shaded}
+
+\#Rarefaction
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Visualization of rarecurves for all samples}
+\NormalTok{richness }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{((site\_species.t }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{*} \DecValTok{1}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(richness)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   S1.28   S1.33   S1.56   S1.63   S1.78   S2.22   S2.29   S2.56   S2.73   S2.78 
+##      60     110     109     119     140      83      65      90     105      72 
+## S2.78.2   S3.23   S3.27   S3.55   S3.73   S3.77   S4.18   S4.22   S4.46   S4.68 
+##      22      93      66      62     107     115     123      95     104     104 
+##   S4.73   S5.13   S5.29   S5.56   S5.74   S5.88   R1.14   R1.29   R1.55 R1.55.2 
+##     105     108     104      76      81      72      19     121      55      14 
+##   R1.73   R1.89   R2.19   R2.25   R2.45   R2.63   R2.77   R3.29   R3.34   R3.57 
+##     116      93     124      18      94      89     103      83     107      59 
+##   R3.68 R3.68.2   R3.72   R4.12   R4.28   R4.45 R4.45.2   R4.64   R4.90   R5.28 
+##     111     113     133      78      48      65      69     110      85      83 
+##   R5.32 R5.32.2   R5.54   R5.77   R5.92 
+##      75      69      98     119      97
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{minimum.r }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(site\_species.t))}
+\NormalTok{rarefy }\OtherTok{\textless{}{-}} \FunctionTok{rarefy}\NormalTok{(}\AttributeTok{x =}\NormalTok{ site\_species.t, }\AttributeTok{sample =}\NormalTok{ minimum.r, }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{rarecurve}\NormalTok{(}\AttributeTok{x =}\NormalTok{ site\_species.t, }\AttributeTok{step =} \DecValTok{20}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }\AttributeTok{las =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{100}\NormalTok{, }\StringTok{"1:1"}\NormalTok{, }\AttributeTok{pos =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Rarefaction of samples}
+\NormalTok{site\_species.r }\OtherTok{\textless{}{-}} \FunctionTok{rrarefy}\NormalTok{(site\_species.t, }\DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in rrarefy(site_species.t, 1000): some row sums < 'sample' and are not
+## rarefied
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{richness }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{((site\_species.r }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{*} \DecValTok{1}\NormalTok{)}
+\NormalTok{minimum.r }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(site\_species.r))}
+\NormalTok{rarefy }\OtherTok{\textless{}{-}} \FunctionTok{rarefy}\NormalTok{(}\AttributeTok{x =}\NormalTok{ site\_species.r, }\AttributeTok{sample =}\NormalTok{ minimum.r, }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{rarecurve}\NormalTok{(}\AttributeTok{x =}\NormalTok{ site\_species.r, }\AttributeTok{step =} \DecValTok{20}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }\AttributeTok{las =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{100}\NormalTok{, }\StringTok{"1:1"}\NormalTok{, }\AttributeTok{pos =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Remove samples containing less than 1000 reads (R1.14, R1.55.2, R2.25, S2.78.2)}
+
+\NormalTok{df.site\_species.r }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(site\_species.r)}
+\NormalTok{rarefied\_site\_species }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{()}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(df.site\_species.r))\{}
+  \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{rowSums}\NormalTok{(df.site\_species.r[i,]) }\SpecialCharTok{\textgreater{}=} \DecValTok{1000}\NormalTok{)\{}
+\NormalTok{    rarefied\_site\_species }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(rarefied\_site\_species, df.site\_species.r[i,])}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{\#Visualizing}
+\NormalTok{richness }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{((rarefied\_site\_species }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{*} \DecValTok{1}\NormalTok{)}
+\NormalTok{minimum.r }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(}\FunctionTok{rowSums}\NormalTok{(rarefied\_site\_species))}
+\NormalTok{rarefy }\OtherTok{\textless{}{-}} \FunctionTok{rarefy}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rarefied\_site\_species, }\AttributeTok{sample =}\NormalTok{ minimum.r, }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{rarecurve}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rarefied\_site\_species, }\AttributeTok{step =} \DecValTok{20}\NormalTok{, }\AttributeTok{col =} \StringTok{"blue"}\NormalTok{, }\AttributeTok{cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }\AttributeTok{las =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\DecValTok{200}\NormalTok{, }\DecValTok{100}\NormalTok{, }\StringTok{"1:1"}\NormalTok{, }\AttributeTok{pos =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\#Removing samples to match environmental data downstream
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rarefied\_site\_species }\OtherTok{\textless{}{-}}\NormalTok{ rarefied\_site\_species[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{38}\NormalTok{,}\DecValTok{43}\NormalTok{,}\DecValTok{48}\NormalTok{),]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{importing-environmental-data}{%
+\section{Importing Environmental
+Data}\label{importing-environmental-data}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{env }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"alpine\_ridge\_data/variables.txt"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}\NormalTok{)}
+\NormalTok{env }\OtherTok{\textless{}{-}}\NormalTok{ env[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{26}\NormalTok{,}\DecValTok{31}\NormalTok{),]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{calculating-bray-curtis-beta-diversity}{%
+\section{Calculating Bray-Curtis
+Beta-Diversity}\label{calculating-bray-curtis-beta-diversity}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fungalBC }\OtherTok{\textless{}{-}} \FunctionTok{vegdist}\NormalTok{(rarefied\_site\_species, }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cluster-analysis-of-fungal-communities}{%
+\section{Cluster Analysis of Fungal
+Communities}\label{cluster-analysis-of-fungal-communities}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Performing Cluster Analysis}
+\NormalTok{fungal.ward }\OtherTok{\textless{}{-}} \FunctionTok{hclust}\NormalTok{(fungalBC, }\AttributeTok{method =} \StringTok{"ward.D2"}\NormalTok{)}
+
+\CommentTok{\#Plotting Cluster}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(fungal.ward, }\AttributeTok{main =} \StringTok{"Doubs River Fish: Ward\textquotesingle{}s Clustering"}\NormalTok{,}
+     \AttributeTok{ylab =} \StringTok{"Squared Bray{-}Curtis Distance"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\hypertarget{pcoa-of-fungal-communities}{%
+\section{PCoA of Fungal Communities}\label{pcoa-of-fungal-communities}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fungal.pcoa }\OtherTok{\textless{}{-}} \FunctionTok{cmdscale}\NormalTok{(fungalBC, }\AttributeTok{eig =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{k =} \DecValTok{3}\NormalTok{)}
+
+\NormalTok{explainvar1 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{explainvar2 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{explainvar3 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{sum.eig }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(explainvar1, explainvar2, explainvar3)}
+
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ rarefied\_site\_species}
+
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{Site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"S1"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S2"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S3"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S4"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S5"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R1"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R2"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R3"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R4"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R5"}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"Snowbed"}\NormalTok{, }\DecValTok{25}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"Ridge"}\NormalTok{, }\DecValTok{23}\NormalTok{))}
+
+\DocumentationTok{\#\# Plotting}
+\CommentTok{\# make a fake pcoa}
+\NormalTok{dist      }\OtherTok{\textless{}{-}} \FunctionTok{vegdist}\NormalTok{(test[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{807}\NormalTok{],  }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{)}
+\NormalTok{fake\_pcoa }\OtherTok{\textless{}{-}} \FunctionTok{pcoa}\NormalTok{(dist)}
+\CommentTok{\#summary(fake\_pcoa) }
+
+\CommentTok{\# get the out of pcoa }
+\CommentTok{\# site scores = samples }
+\NormalTok{sitescores   }\OtherTok{\textless{}{-}}\NormalTok{ fake\_pcoa}\SpecialCharTok{$}\NormalTok{vectors }\CommentTok{\#we need only the first two axis }
+\NormalTok{newdata }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(sitescores[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{], }\AttributeTok{Location =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Location, }\AttributeTok{Site =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Site))}
+
+\CommentTok{\#one way }
+\NormalTok{bray }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(newdata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =} \FunctionTok{as.numeric}\NormalTok{(Axis}\FloatTok{.1}\NormalTok{), }\AttributeTok{x =} \FunctionTok{as.numeric}\NormalTok{(Axis}\FloatTok{.2}\NormalTok{), }\AttributeTok{shape =}\NormalTok{ Location, }\AttributeTok{color =}\NormalTok{ Site))}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{5}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{()}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \FunctionTok{paste}\NormalTok{(}\StringTok{"PCoA 1 ("}\NormalTok{, explainvar1, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{), }\AttributeTok{x =} \FunctionTok{paste}\NormalTok{(}\StringTok{"PCoA 2 ("}\NormalTok{, explainvar2, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{))}
+\NormalTok{bray}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\hypertarget{how-much-variance-is-explained-by-site-location-bray-curtis}{%
+\section{How much variance is explained by site location
+(Bray-Curtis)}\label{how-much-variance-is-explained-by-site-location-bray-curtis}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"S1"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S2"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S3"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S4"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S5"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R1"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R2"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R3"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R4"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R5"}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+
+\FunctionTok{adonis}\NormalTok{(rarefied\_site\_species }\SpecialCharTok{\textasciitilde{}}\NormalTok{ env}\SpecialCharTok{$}\NormalTok{V }\SpecialCharTok{+}\NormalTok{ site, }\AttributeTok{permutations =} \DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## adonis(formula = rarefied_site_species ~ env$V + site, permutations = 999) 
+## 
+## Permutation: free
+## Number of permutations: 999
+## 
+## Terms added sequentially (first to last)
+## 
+##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+## env$V      1    0.9407 0.94068  3.9907 0.06743  0.001 ***
+## site       8    4.0535 0.50669  2.1496 0.29055  0.001 ***
+## Residuals 38    8.9572 0.23572         0.64203           
+## Total     47   13.9514                 1.00000           
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{calculating-sorensen-beta-diversity}{%
+\section{Calculating Sorensen
+Beta-Diversity}\label{calculating-sorensen-beta-diversity}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fungalS }\OtherTok{\textless{}{-}} \FunctionTok{vegdist}\NormalTok{(rarefied\_site\_species, }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{, }\AttributeTok{binary =} \StringTok{"TRUE"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{cluster-analysis-of-fungal-communities-1}{%
+\section{Cluster Analysis of Fungal
+Communities}\label{cluster-analysis-of-fungal-communities-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Performing Cluster Analysis}
+\NormalTok{fungal.wardS }\OtherTok{\textless{}{-}} \FunctionTok{hclust}\NormalTok{(fungalS, }\AttributeTok{method =} \StringTok{"ward.D2"}\NormalTok{)}
+
+\CommentTok{\#Plotting Cluster}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(fungal.wardS, }\AttributeTok{main =} \StringTok{"Doubs River Fish: Ward\textquotesingle{}s Clustering"}\NormalTok{,}
+     \AttributeTok{ylab =} \StringTok{"Squared Sørensen\textquotesingle{}s Distance"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-13-1.pdf}
+
+\hypertarget{pcoa-of-fungal-communities-1}{%
+\section{PCoA of Fungal
+Communities}\label{pcoa-of-fungal-communities-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fungal.S.pcoa }\OtherTok{\textless{}{-}} \FunctionTok{cmdscale}\NormalTok{(fungalS, }\AttributeTok{eig =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{k =} \DecValTok{3}\NormalTok{)}
+
+\NormalTok{explainvar1 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.S.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{explainvar2 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.S.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{explainvar3 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.S.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{sum.eig }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(explainvar1, explainvar2, explainvar3)}
+
+\DocumentationTok{\#\# Plotting}
+\CommentTok{\# make a fake pcoa}
+\NormalTok{dist      }\OtherTok{\textless{}{-}} \FunctionTok{vegdist}\NormalTok{(test[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{807}\NormalTok{],  }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{, }\AttributeTok{binary =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{fake\_pcoa }\OtherTok{\textless{}{-}} \FunctionTok{pcoa}\NormalTok{(dist)}
+\CommentTok{\#summary(fake\_pcoa) }
+
+\CommentTok{\# get the out of pcoa }
+\CommentTok{\# site scores = samples }
+\NormalTok{sitescores   }\OtherTok{\textless{}{-}}\NormalTok{ fake\_pcoa}\SpecialCharTok{$}\NormalTok{vectors }\CommentTok{\#we need only the first two axis }
+\NormalTok{newdata }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(sitescores[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{], }\AttributeTok{Location =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Location, }\AttributeTok{Site =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Site))}
+
+\CommentTok{\#one way }
+\NormalTok{soren }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(newdata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =} \FunctionTok{as.numeric}\NormalTok{(Axis}\FloatTok{.1}\NormalTok{), }\AttributeTok{x =} \FunctionTok{as.numeric}\NormalTok{(Axis}\FloatTok{.2}\NormalTok{), }\AttributeTok{shape =}\NormalTok{ Location, }\AttributeTok{color =}\NormalTok{ Site))}
+\NormalTok{soren }\OtherTok{\textless{}{-}}\NormalTok{ soren }\SpecialCharTok{+} \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{soren }\OtherTok{\textless{}{-}}\NormalTok{ soren }\SpecialCharTok{+} \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{soren }\OtherTok{\textless{}{-}}\NormalTok{ soren }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{5}\NormalTok{)}
+\NormalTok{soren }\OtherTok{\textless{}{-}}\NormalTok{ soren }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{()}
+\NormalTok{soren }\OtherTok{\textless{}{-}}\NormalTok{ soren }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \FunctionTok{paste}\NormalTok{(}\StringTok{"PCoA 1 ("}\NormalTok{, explainvar1, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{), }\AttributeTok{x =} \FunctionTok{paste}\NormalTok{(}\StringTok{"PCoA 2 ("}\NormalTok{, explainvar2, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{))}
+\NormalTok{soren}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\hypertarget{how-much-variance-is-explained-by-site-location-sorensen}{%
+\section{How much variance is explained by site location
+(Sorensen)}\label{how-much-variance-is-explained-by-site-location-sorensen}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"S1"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S2"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S3"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S4"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S5"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R1"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R2"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R3"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R4"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R5"}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+
+\FunctionTok{adonis}\NormalTok{(rarefied\_site\_species }\SpecialCharTok{\textasciitilde{}}\NormalTok{ env}\SpecialCharTok{$}\NormalTok{V }\SpecialCharTok{+}\NormalTok{ site, }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{, }\AttributeTok{binary =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{permutations =} \DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## adonis(formula = rarefied_site_species ~ env$V + site, permutations = 999,      method = "bray", binary = TRUE) 
+## 
+## Permutation: free
+## Number of permutations: 999
+## 
+## Terms added sequentially (first to last)
+## 
+##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+## env$V      1    1.3047 1.30474  5.5941 0.09351  0.001 ***
+## site       8    3.7858 0.47323  2.0290 0.27132  0.001 ***
+## Residuals 38    8.8630 0.23324         0.63518           
+## Total     47   13.9535                 1.00000           
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{relative-abundance-visualization}{%
+\subsection{Relative Abundance
+Visualization}\label{relative-abundance-visualization}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{genus }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"alpine\_ridge\_data/genus\_table.csv"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\#convert rownames into column}
+
+\NormalTok{genus}\FloatTok{.1} \OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{t}\NormalTok{(rarefied\_site\_species))}
+\FunctionTok{setDT}\NormalTok{(genus}\FloatTok{.1}\NormalTok{, }\AttributeTok{keep.rownames =} \ConstantTok{TRUE}\NormalTok{)[]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        rn S1.28 S1.33 S1.56 S1.63 S1.78 S2.22 S2.29 S2.56 S2.73 S2.78 S3.23
+##   1:   V1     0     0     0     0     0     0     0     0     0     0     0
+##   2:   V2     0     0     0     0     0     0     0     0     0     0     0
+##   3:   V3     0     0     0     0     0     0     0     0     0     0     0
+##   4:   V4     0     0     0     1     0     0     0     4     0     0     0
+##   5:   V5     0     0     0     0     0     0     0     0     0     0     0
+##  ---                                                                       
+## 803: V803     0     0     0     0     2     0     2     1     0     0     0
+## 804: V804     0     0     0     0     0     0     0     0     2     0     0
+## 805: V805     0     0     0     0     0     0     0     0     0     0     0
+## 806: V806     0     0     0     0     0     0     0     0     0     0     0
+## 807: V807     0     0     0     0     0     0     0     0     0     0     0
+##      S3.27 S3.55 S3.73 S3.77 S4.18 S4.22 S4.46 S4.68 S4.73 S5.13 S5.29 S5.56
+##   1:     0     0     0     0     0     0     0     0     1     0     0     0
+##   2:     0     0     0     0     4     0    32     0     0     0    14    11
+##   3:     0     0     0     0     0     0     0     0     0     0     0     0
+##   4:     0     0     0     0     0     0     0     0     0     0     0     0
+##   5:     0     0     0     0     0     0     1     0     0     0     0     0
+##  ---                                                                        
+## 803:     0     0     0     1     6     2     1     2     0     0     0     0
+## 804:     0     1     0     1     0     0     0     0     0     0     0     0
+## 805:     0     0     0     0     0     0     0     0     0     0     0     0
+## 806:     0     0     0     0     0     0     0     0     0     0     0     0
+## 807:     0     0     0     0     0     0     0     0     0     0     0     0
+##      S5.74 S5.88 R1.29 R1.55 R1.73 R1.89 R2.19 R2.45 R2.63 R2.77 R3.29 R3.34
+##   1:     0     0     0     0     0     0     0     0     0     0     0     0
+##   2:     4     1     0     0     0     0     0     0     0     0     0     0
+##   3:     0     0     0     0     0     0     0     0     0     0     0     0
+##   4:     0     0     0     0     0     0     0     0     0     0     0     0
+##   5:     0     0     0     0     0     0     0     0     1     1     0     0
+##  ---                                                                        
+## 803:     0     0     0     0     0     0     0     6     0     1     0     1
+## 804:     0     0     4     1     2     0     0     0     0     0     0     1
+## 805:     0     0     1     0     0     0     0     1     0     0     0     0
+## 806:     0     0     0     0     0     0     0     0     0     0     0     0
+## 807:     0     0     0     0     0     0     0     0     0     0     0     0
+##      R3.57 R3.68 R3.72 R4.12 R4.28 R4.45 R4.64 R4.90 R5.28 R5.32 R5.54 R5.77
+##   1:     0     0     0     0     0     0     0     0     0     0     0     0
+##   2:     0     0     0     0     0     0     0     0     0     0     0     0
+##   3:     0     0     0     1     0     0     0     0     0     0     0     0
+##   4:     0     0     0     0     0     0     0     0     0     0     0     0
+##   5:     0     0     0     0     0     0     0     0     0     0     0     0
+##  ---                                                                        
+## 803:     0     0     4     0     0     0     0     0     0     3     0     0
+## 804:     0     0     0     0     0     0     0     6    12     0    14    26
+## 805:     0     0     0     0     0     0     0     0     0     0     0     0
+## 806:     0     0     0     0     0     0     0     0     1     0     0     1
+## 807:     0     0     0     0     0     0     0     0     0     0     0     0
+##      R5.92
+##   1:     0
+##   2:     0
+##   3:     0
+##   4:     0
+##   5:     0
+##  ---      
+## 803:     0
+## 804:     1
+## 805:     0
+## 806:     0
+## 807:     0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Converting to Long Format}
+\NormalTok{genus\_long }\OtherTok{\textless{}{-}} \FunctionTok{melt}\NormalTok{(genus}\FloatTok{.1}\NormalTok{, }\AttributeTok{id.vars =} \StringTok{"rn"}\NormalTok{, }\AttributeTok{variable.name =} \StringTok{"Sample"}\NormalTok{)}
+
+\CommentTok{\# Creating Graph of data}
+\NormalTok{genus\_graph }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ genus\_long, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Sample,  }\AttributeTok{y =}\NormalTok{ value, }\AttributeTok{fill =}\NormalTok{ rn))}
+\NormalTok{genus\_graph }\OtherTok{\textless{}{-}}\NormalTok{ genus\_graph }\SpecialCharTok{+} \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat=}\StringTok{"identity"}\NormalTok{)}
+\NormalTok{genus\_graph }\OtherTok{\textless{}{-}}\NormalTok{ genus\_graph }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Relative Abundance"}\NormalTok{, }\AttributeTok{x =} \StringTok{"Sample"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Genus Relative Abundances"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_classic}\NormalTok{()}
+\NormalTok{genus\_graph }\OtherTok{\textless{}{-}}\NormalTok{ genus\_graph }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"None"}\NormalTok{)}
+\NormalTok{genus\_graph }\OtherTok{\textless{}{-}}\NormalTok{ genus\_graph }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{angle =} \DecValTok{90}\NormalTok{, }\AttributeTok{vjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{hjust=}\DecValTok{1}\NormalTok{))}
+\NormalTok{genus\_graph}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\hypertarget{importing-environmental-data-and-testing-for-significance}{%
+\section{Importing environmental data and testing for
+significance}\label{importing-environmental-data-and-testing-for-significance}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{env }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"alpine\_ridge\_data/variables.txt"}\NormalTok{, }\AttributeTok{header =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{"}\SpecialCharTok{\textbackslash{}t}\StringTok{"}\NormalTok{)}
+\NormalTok{env }\OtherTok{\textless{}{-}}\NormalTok{ env[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{26}\NormalTok{,}\DecValTok{31}\NormalTok{),]}
+
+\NormalTok{site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"S1"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S2"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S3"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S4"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"S5"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R1"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R2"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R3"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R4"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"R5"}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\FunctionTok{adonis}\NormalTok{(rarefied\_site\_species }\SpecialCharTok{\textasciitilde{}}\NormalTok{ env}\SpecialCharTok{$}\NormalTok{V }\SpecialCharTok{+}\NormalTok{ site, }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{, }\AttributeTok{permutations =} \DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## adonis(formula = rarefied_site_species ~ env$V + site, permutations = 999,      method = "bray") 
+## 
+## Permutation: free
+## Number of permutations: 999
+## 
+## Terms added sequentially (first to last)
+## 
+##           Df SumsOfSqs MeanSqs F.Model      R2 Pr(>F)    
+## env$V      1    0.9407 0.94068  3.9907 0.06743  0.001 ***
+## site       8    4.0535 0.50669  2.1496 0.29055  0.001 ***
+## Residuals 38    8.9572 0.23572         0.64203           
+## Total     47   13.9514                 1.00000           
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\hypertarget{constructing-constrained-ordination}{%
+\section{Constructing Constrained
+Ordination}\label{constructing-constrained-ordination}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{env.chem }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(env[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{)])}
+
+
+\NormalTok{S.dbrda }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+\FunctionTok{ordiplot}\NormalTok{(S.dbrda)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S.dbrda0 }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+\NormalTok{S.dbrda1 }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+
+\NormalTok{S.dbrda }\OtherTok{\textless{}{-}} \FunctionTok{ordiR2step}\NormalTok{(S.dbrda0, S.dbrda1, }\AttributeTok{perm.max =} \DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Step: R2.adj= 0 
+## Call: fungalS ~ 1 
+##  
+##                 R2.adjusted
+## <All variables> 0.038468193
+## + N             0.029413323
+## + C             0.023117467
+## + P             0.006519546
+## <none>          0.000000000
+## 
+##     Df    AIC      F Pr(>F)   
+## + N  1 127.04 2.4243  0.002 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Step: R2.adj= 0.02941332 
+## Call: fungalS ~ N 
+##  
+##                 R2.adjusted
+## <All variables>  0.03846819
+## + C              0.03451712
+## + P              0.03179764
+## <none>           0.02941332
+## 
+##     Df    AIC      F Pr(>F)
+## + C  1 127.73 1.2432  0.102
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{permutest}\NormalTok{(S.dbrda, }\AttributeTok{permutations =} \DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Permutation test for dbrda under reduced model 
+## 
+## Permutation: free
+## Number of permutations: 999
+##  
+## Model: dbrda(formula = fungalS ~ N, data = as.data.frame(env.chem))
+## Permutation test for all constrained eigenvalues
+##          Df Inertia      F Pr(>F)   
+## Model     1  0.6986 2.4243  0.002 **
+## Residual 46 13.2550                 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{envfit}\NormalTok{(S.dbrda, env.chem, }\AttributeTok{permutations =} \DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## ***VECTORS
+## 
+##     dbRDA1     MDS1     r2 Pr(>r)    
+## P  0.94683 -0.32174 0.0815  0.147    
+## N -0.78582  0.61845 0.8529  0.001 ***
+## C -0.75877  0.65136 0.8146  0.001 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Permutation: free
+## Number of permutations: 999
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Calculating explained variation on axes}
+\NormalTok{S.explainvar1 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(S.dbrda}\SpecialCharTok{$}\NormalTok{CCA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}
+                             \FunctionTok{sum}\NormalTok{(}\FunctionTok{c}\NormalTok{(S.dbrda}\SpecialCharTok{$}\NormalTok{CCA}\SpecialCharTok{$}\NormalTok{eig, S.dbrda}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig)),}
+                           \DecValTok{3}\NormalTok{ ) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{S.explainvar2 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(S.dbrda}\SpecialCharTok{$}\NormalTok{CCA}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}
+                             \FunctionTok{sum}\NormalTok{(}\FunctionTok{c}\NormalTok{(S.dbrda}\SpecialCharTok{$}\NormalTok{CCA}\SpecialCharTok{$}\NormalTok{eig, S.dbrda}\SpecialCharTok{$}\NormalTok{CA}\SpecialCharTok{$}\NormalTok{eig)),}
+                           \DecValTok{3}\NormalTok{ ) }\SpecialCharTok{*} \DecValTok{100}
+
+\CommentTok{\#Plotting constrained ordination results}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{scores}\NormalTok{(S.dbrda, }\AttributeTok{display =} \StringTok{"wa"}\NormalTok{), }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\FloatTok{2.1}\NormalTok{), }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{2.3}\NormalTok{, }\FloatTok{2.0}\NormalTok{), }
+     \AttributeTok{xlab =} \FunctionTok{paste}\NormalTok{(}\StringTok{"dbRDA 1 ("}\NormalTok{, S.explainvar1, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{),}
+     \AttributeTok{ylab =} \FunctionTok{paste}\NormalTok{(}\StringTok{"dbRDA 2 ("}\NormalTok{, S.explainvar2, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{),}
+     \AttributeTok{pch =} \DecValTok{16}\NormalTok{, }\AttributeTok{cex =} \FloatTok{2.0}\NormalTok{, }\AttributeTok{type =} \StringTok{"n"}\NormalTok{, }\AttributeTok{cex.lab =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{1.2}\NormalTok{, }\AttributeTok{axes =} \ConstantTok{FALSE}
+\NormalTok{     )}
+
+\FunctionTok{axis}\NormalTok{(}\AttributeTok{side =} \DecValTok{1}\NormalTok{, }\AttributeTok{labels =}\NormalTok{ T, }\AttributeTok{lwd.ticks =} \DecValTok{2}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{1.2}\NormalTok{, }\AttributeTok{las =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{axis}\NormalTok{(}\AttributeTok{side =} \DecValTok{2}\NormalTok{, }\AttributeTok{labels =}\NormalTok{ T, }\AttributeTok{lwd.ticks =} \DecValTok{2}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{1.2}\NormalTok{, }\AttributeTok{las =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\AttributeTok{v =} \DecValTok{0}\NormalTok{, }\AttributeTok{lty =} \DecValTok{3}\NormalTok{)}
+\FunctionTok{box}\NormalTok{(}\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+
+\FunctionTok{points}\NormalTok{(}\FunctionTok{scores}\NormalTok{(S.dbrda, }\AttributeTok{display =} \StringTok{"wa"}\NormalTok{),}
+       \AttributeTok{pch =} \DecValTok{19}\NormalTok{, }\AttributeTok{cex =} \DecValTok{3}\NormalTok{, }\AttributeTok{bg =} \StringTok{"gray"}\NormalTok{, }\AttributeTok{col =} \StringTok{"gray"}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(}\FunctionTok{scores}\NormalTok{(S.dbrda, }\AttributeTok{display =} \StringTok{"wa"}\NormalTok{),}
+     \AttributeTok{labels =} \FunctionTok{row.names}\NormalTok{(}\FunctionTok{scores}\NormalTok{(S.dbrda, }\AttributeTok{display =} \StringTok{"wa"}\NormalTok{)))}
+
+\CommentTok{\#Plotting vectors for influence of environmental factors}
+\NormalTok{vectors }\OtherTok{\textless{}{-}} \FunctionTok{scores}\NormalTok{(S.dbrda, }\AttributeTok{display =} \StringTok{"bp"}\NormalTok{)}
+\FunctionTok{arrows}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, vectors[,}\DecValTok{1}\NormalTok{], vectors[,}\DecValTok{2}\NormalTok{],}
+       \AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{1}\NormalTok{, }\AttributeTok{length =}\NormalTok{ .}\DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(vectors[,}\DecValTok{1}\NormalTok{], vectors[,}\DecValTok{2}\NormalTok{], }\AttributeTok{pos =} \DecValTok{3}\NormalTok{, }
+     \AttributeTok{labels =} \FunctionTok{row.names}\NormalTok{(vectors), }\AttributeTok{col =} \StringTok{"red"}\NormalTok{)}
+\FunctionTok{axis}\NormalTok{(}\AttributeTok{side =} \DecValTok{3}\NormalTok{, }\AttributeTok{lwd.ticks =} \DecValTok{2}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{1.2}\NormalTok{, }\AttributeTok{las =} \DecValTok{1}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \FloatTok{2.2}\NormalTok{,}
+     \AttributeTok{at =} \FunctionTok{pretty}\NormalTok{(}\FunctionTok{range}\NormalTok{(vectors[,}\DecValTok{1}\NormalTok{])) }\SpecialCharTok{*} \DecValTok{2}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{pretty}\NormalTok{(}\FunctionTok{range}\NormalTok{(vectors[,}\DecValTok{1}\NormalTok{])))}
+\FunctionTok{axis}\NormalTok{(}\AttributeTok{side =} \DecValTok{4}\NormalTok{, }\AttributeTok{lwd.ticks =} \DecValTok{2}\NormalTok{, }\AttributeTok{cex.axis =} \FloatTok{1.2}\NormalTok{, }\AttributeTok{las =} \DecValTok{1}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \FloatTok{2.2}\NormalTok{,}
+     \AttributeTok{at =} \FunctionTok{pretty}\NormalTok{(}\FunctionTok{range}\NormalTok{(vectors[,}\DecValTok{2}\NormalTok{])) }\SpecialCharTok{*} \DecValTok{2}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{pretty}\NormalTok{(}\FunctionTok{range}\NormalTok{(vectors[,}\DecValTok{2}\NormalTok{])))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-18-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{env.chem }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(env[,}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{)])}
+
+\NormalTok{fungalS }\OtherTok{\textless{}{-}}\NormalTok{ fungalBC}
+
+\NormalTok{S.dbrda }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+\FunctionTok{ordiplot}\NormalTok{(S.dbrda)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S.dbrda0 }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+\NormalTok{S.dbrda1 }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+
+\NormalTok{S.dbrda }\OtherTok{\textless{}{-}} \FunctionTok{ordiR2step}\NormalTok{(S.dbrda0, S.dbrda1, }\AttributeTok{perm.max =} \DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Step: R2.adj= 0 
+## Call: fungalS ~ 1 
+##  
+##                 R2.adjusted
+## <All variables> 0.014197795
+## + N             0.008095418
+## + C             0.006033863
+## + P             0.001713191
+## <none>          0.000000000
+## 
+##     Df    AIC      F Pr(>F)
+## + N  1 128.07 1.3836  0.122
+\end{verbatim}
+
+Sorensen distance is influenced by Nitrogen concentration in the soil
+but BC is not influenced by Nitrogren, Carbon, or Phosphorus
+
+\hypertarget{effect-of-plant-abundance-and-diversity-on-fungal-community-structure}{%
+\section{Effect of plant abundance and diversity on fungal community
+structure}\label{effect-of-plant-abundance-and-diversity-on-fungal-community-structure}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Making new dataframe with summary of all statistics}
+\NormalTok{plot.info }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{10}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{1}\NormalTok{))}
+\NormalTok{plot.info }\OtherTok{\textless{}{-}}\NormalTok{ plot.info[,}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{plot.info}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"Ridge"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"Snowbed"}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\FunctionTok{rownames}\NormalTok{(plot.info) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S1"}\NormalTok{,}\StringTok{"S2"}\NormalTok{,}\StringTok{"S3"}\NormalTok{,}\StringTok{"S4"}\NormalTok{,}\StringTok{"S5"}\NormalTok{,}\StringTok{"R1"}\NormalTok{,}\StringTok{"R2"}\NormalTok{,}\StringTok{"R3"}\NormalTok{,}\StringTok{"R4"}\NormalTok{,}\StringTok{"R5"}\NormalTok{)}
+\NormalTok{plot.info}\SpecialCharTok{$}\NormalTok{site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S1"}\NormalTok{,}\StringTok{"S2"}\NormalTok{,}\StringTok{"S3"}\NormalTok{,}\StringTok{"S4"}\NormalTok{,}\StringTok{"S5"}\NormalTok{,}\StringTok{"R1"}\NormalTok{,}\StringTok{"R2"}\NormalTok{,}\StringTok{"R3"}\NormalTok{,}\StringTok{"R4"}\NormalTok{,}\StringTok{"R5"}\NormalTok{)}
+
+\CommentTok{\# Adding average soil nutrients}
+\NormalTok{plot.info}\SpecialCharTok{$}\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{2}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{11}\SpecialCharTok{:}\DecValTok{15}\NormalTok{, }\DecValTok{2}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{16}\SpecialCharTok{:}\DecValTok{20}\NormalTok{, }\DecValTok{2}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{21}\SpecialCharTok{:}\DecValTok{25}\NormalTok{, }\DecValTok{2}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{29}\NormalTok{, }\DecValTok{2}\NormalTok{]),}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{30}\SpecialCharTok{:}\DecValTok{33}\NormalTok{, }\DecValTok{2}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{34}\SpecialCharTok{:}\DecValTok{38}\NormalTok{, }\DecValTok{2}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{39}\SpecialCharTok{:}\DecValTok{43}\NormalTok{, }\DecValTok{2}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{44}\SpecialCharTok{:}\DecValTok{48}\NormalTok{, }\DecValTok{2}\NormalTok{]))}
+\NormalTok{plot.info}\SpecialCharTok{$}\NormalTok{N }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{3}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{11}\SpecialCharTok{:}\DecValTok{15}\NormalTok{, }\DecValTok{3}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{16}\SpecialCharTok{:}\DecValTok{20}\NormalTok{, }\DecValTok{3}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{21}\SpecialCharTok{:}\DecValTok{25}\NormalTok{, }\DecValTok{3}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{29}\NormalTok{, }\DecValTok{3}\NormalTok{]),}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{30}\SpecialCharTok{:}\DecValTok{33}\NormalTok{, }\DecValTok{3}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{34}\SpecialCharTok{:}\DecValTok{38}\NormalTok{, }\DecValTok{3}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{39}\SpecialCharTok{:}\DecValTok{43}\NormalTok{, }\DecValTok{3}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{44}\SpecialCharTok{:}\DecValTok{48}\NormalTok{, }\DecValTok{3}\NormalTok{]))}
+\NormalTok{plot.info}\SpecialCharTok{$}\NormalTok{C }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{4}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{4}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{11}\SpecialCharTok{:}\DecValTok{15}\NormalTok{, }\DecValTok{4}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{16}\SpecialCharTok{:}\DecValTok{20}\NormalTok{, }\DecValTok{4}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{21}\SpecialCharTok{:}\DecValTok{25}\NormalTok{, }\DecValTok{4}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{29}\NormalTok{, }\DecValTok{4}\NormalTok{]),}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{30}\SpecialCharTok{:}\DecValTok{33}\NormalTok{, }\DecValTok{4}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{34}\SpecialCharTok{:}\DecValTok{38}\NormalTok{, }\DecValTok{4}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{39}\SpecialCharTok{:}\DecValTok{43}\NormalTok{, }\DecValTok{4}\NormalTok{]), }\FunctionTok{mean}\NormalTok{(env[}\DecValTok{44}\SpecialCharTok{:}\DecValTok{48}\NormalTok{, }\DecValTok{4}\NormalTok{]))}
+
+\CommentTok{\# Adding alpha diversity data}
+\NormalTok{rarefied.sites }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{((}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{10}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{807}\NormalTok{)))}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(}\FunctionTok{ncol}\NormalTok{(rarefied\_site\_species)))\{}
+\NormalTok{  rarefied.sites[,i] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, i]), }\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{6}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, i]), }\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{11}\SpecialCharTok{:}\DecValTok{15}\NormalTok{, i]), }\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{16}\SpecialCharTok{:}\DecValTok{20}\NormalTok{, i]), }\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{21}\SpecialCharTok{:}\DecValTok{25}\NormalTok{, i]), }\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{29}\NormalTok{, i]),}\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{30}\SpecialCharTok{:}\DecValTok{33}\NormalTok{, i]), }\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{34}\SpecialCharTok{:}\DecValTok{38}\NormalTok{, i]), }\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{39}\SpecialCharTok{:}\DecValTok{43}\NormalTok{, i]), }\FunctionTok{sum}\NormalTok{(rarefied\_site\_species[}\DecValTok{44}\SpecialCharTok{:}\DecValTok{48}\NormalTok{, i]))}
+\NormalTok{\}}
+\FunctionTok{rownames}\NormalTok{(rarefied.sites) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S1"}\NormalTok{,}\StringTok{"S2"}\NormalTok{,}\StringTok{"S3"}\NormalTok{,}\StringTok{"S4"}\NormalTok{,}\StringTok{"S5"}\NormalTok{,}\StringTok{"R1"}\NormalTok{,}\StringTok{"R2"}\NormalTok{,}\StringTok{"R3"}\NormalTok{,}\StringTok{"R4"}\NormalTok{,}\StringTok{"R5"}\NormalTok{)}
+
+\CommentTok{\# Species richness}
+\NormalTok{plot.info}\SpecialCharTok{$}\NormalTok{richness }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{((rarefied.sites }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{*} \DecValTok{1}\NormalTok{)}
+
+
+\NormalTok{plot.info }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(plot.info)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{pcoa-of-grouped-fungal-communities}{%
+\section{PCoA of Grouped Fungal
+Communities}\label{pcoa-of-grouped-fungal-communities}}
+
+\#Site-grouped Bray-Curtis
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fungalBC }\OtherTok{\textless{}{-}} \FunctionTok{vegdist}\NormalTok{(rarefied.sites, }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{)}
+
+\NormalTok{fungal.pcoa }\OtherTok{\textless{}{-}} \FunctionTok{cmdscale}\NormalTok{(fungalBC, }\AttributeTok{eig =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{k =} \DecValTok{3}\NormalTok{)}
+
+\NormalTok{explainvar1 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{explainvar2 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{explainvar3 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{sum.eig }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(explainvar1, explainvar2, explainvar3)}
+
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ rarefied.sites}
+
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{Site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S1"}\NormalTok{,}\StringTok{"S2"}\NormalTok{,}\StringTok{"S3"}\NormalTok{,}\StringTok{"S4"}\NormalTok{,}\StringTok{"S5"}\NormalTok{,}\StringTok{"R1"}\NormalTok{,}\StringTok{"R2"}\NormalTok{,}\StringTok{"R3"}\NormalTok{,}\StringTok{"R4"}\NormalTok{,}\StringTok{"R5"}\NormalTok{)}
+
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"Ridge"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"Snowbed"}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+
+\DocumentationTok{\#\# Plotting}
+\CommentTok{\# make a fake pcoa}
+\NormalTok{dist      }\OtherTok{\textless{}{-}} \FunctionTok{vegdist}\NormalTok{(test[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{807}\NormalTok{],  }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{)}
+\NormalTok{fake\_pcoa }\OtherTok{\textless{}{-}} \FunctionTok{pcoa}\NormalTok{(dist)}
+\CommentTok{\#summary(fake\_pcoa) }
+
+\CommentTok{\# get the out of pcoa }
+\CommentTok{\# site scores = samples }
+\NormalTok{sitescores   }\OtherTok{\textless{}{-}}\NormalTok{ fake\_pcoa}\SpecialCharTok{$}\NormalTok{vectors }\CommentTok{\#we need only the first two axis }
+\NormalTok{newdata }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(sitescores[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{], }\AttributeTok{Location =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Location, }\AttributeTok{Site =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Site))}
+
+\CommentTok{\#one way }
+\NormalTok{bray }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(newdata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =} \FunctionTok{as.numeric}\NormalTok{(Axis}\FloatTok{.1}\NormalTok{), }\AttributeTok{x =} \FunctionTok{as.numeric}\NormalTok{(Axis}\FloatTok{.2}\NormalTok{), }\AttributeTok{shape =}\NormalTok{ Location, }\AttributeTok{color =}\NormalTok{ Site))}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{5}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{()}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \FunctionTok{paste}\NormalTok{(}\StringTok{"PCoA 1 ("}\NormalTok{, explainvar1, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{), }\AttributeTok{x =} \FunctionTok{paste}\NormalTok{(}\StringTok{"PCoA 2 ("}\NormalTok{, explainvar2, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{))}
+\NormalTok{bray}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-21-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Performing Cluster Analysis}
+\NormalTok{fungal.ward }\OtherTok{\textless{}{-}} \FunctionTok{hclust}\NormalTok{(fungalBC, }\AttributeTok{method =} \StringTok{"ward.D2"}\NormalTok{)}
+
+\CommentTok{\#Plotting Cluster}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(fungal.ward, }\AttributeTok{main =} \StringTok{"Doubs River Fish: Ward\textquotesingle{}s Clustering"}\NormalTok{,}
+     \AttributeTok{ylab =} \StringTok{"Squared Sørensen\textquotesingle{}s Distance"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\hypertarget{site-grouped-sorensen}{%
+\section{Site-grouped Sorensen}\label{site-grouped-sorensen}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fungalBC }\OtherTok{\textless{}{-}} \FunctionTok{vegdist}\NormalTok{(rarefied.sites, }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{, }\AttributeTok{binary =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{fungal.pcoa }\OtherTok{\textless{}{-}} \FunctionTok{cmdscale}\NormalTok{(fungalBC, }\AttributeTok{eig =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{k =} \DecValTok{3}\NormalTok{)}
+
+\NormalTok{explainvar1 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{explainvar2 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{explainvar3 }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig[}\DecValTok{3}\NormalTok{]}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(fungal.pcoa}\SpecialCharTok{$}\NormalTok{eig), }\DecValTok{3}\NormalTok{) }\SpecialCharTok{*} \DecValTok{100}
+\NormalTok{sum.eig }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(explainvar1, explainvar2, explainvar3)}
+
+\NormalTok{test }\OtherTok{\textless{}{-}}\NormalTok{ rarefied.sites}
+
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{Site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S1"}\NormalTok{,}\StringTok{"S2"}\NormalTok{,}\StringTok{"S3"}\NormalTok{,}\StringTok{"S4"}\NormalTok{,}\StringTok{"S5"}\NormalTok{,}\StringTok{"R1"}\NormalTok{,}\StringTok{"R2"}\NormalTok{,}\StringTok{"R3"}\NormalTok{,}\StringTok{"R4"}\NormalTok{,}\StringTok{"R5"}\NormalTok{)}
+
+\NormalTok{test}\SpecialCharTok{$}\NormalTok{Location }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"Ridge"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"Snowbed"}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+
+\DocumentationTok{\#\# Plotting}
+\CommentTok{\# make a fake pcoa}
+\NormalTok{dist      }\OtherTok{\textless{}{-}} \FunctionTok{vegdist}\NormalTok{(test[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{807}\NormalTok{],  }\AttributeTok{method =} \StringTok{"bray"}\NormalTok{, }\AttributeTok{binary =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{fake\_pcoa }\OtherTok{\textless{}{-}} \FunctionTok{pcoa}\NormalTok{(dist)}
+\CommentTok{\#summary(fake\_pcoa) }
+
+\CommentTok{\# get the out of pcoa }
+\CommentTok{\# site scores = samples }
+\NormalTok{sitescores   }\OtherTok{\textless{}{-}}\NormalTok{ fake\_pcoa}\SpecialCharTok{$}\NormalTok{vectors }\CommentTok{\#we need only the first two axis }
+\NormalTok{newdata }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(sitescores[,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{], }\AttributeTok{Location =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Location, }\AttributeTok{Site =}\NormalTok{ test}\SpecialCharTok{$}\NormalTok{Site))}
+
+\CommentTok{\#one way }
+\NormalTok{bray }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(newdata, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =} \FunctionTok{as.numeric}\NormalTok{(Axis}\FloatTok{.1}\NormalTok{), }\AttributeTok{x =} \FunctionTok{as.numeric}\NormalTok{(Axis}\FloatTok{.2}\NormalTok{), }\AttributeTok{shape =}\NormalTok{ Location, }\AttributeTok{color =}\NormalTok{ Site))}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"grey"}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{3}\NormalTok{, }\AttributeTok{alpha =}\NormalTok{ .}\DecValTok{5}\NormalTok{)}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{()}
+\NormalTok{bray }\OtherTok{\textless{}{-}}\NormalTok{ bray }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \FunctionTok{paste}\NormalTok{(}\StringTok{"PCoA 1 ("}\NormalTok{, explainvar1, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{), }\AttributeTok{x =} \FunctionTok{paste}\NormalTok{(}\StringTok{"PCoA 2 ("}\NormalTok{, explainvar2, }\StringTok{"\%)"}\NormalTok{, }\AttributeTok{sep =} \StringTok{""}\NormalTok{))}
+\NormalTok{bray}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Performing Cluster Analysis}
+\NormalTok{fungal.ward }\OtherTok{\textless{}{-}} \FunctionTok{hclust}\NormalTok{(fungalBC, }\AttributeTok{method =} \StringTok{"ward.D2"}\NormalTok{)}
+
+\CommentTok{\#Plotting Cluster}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ .}\DecValTok{1}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(fungal.ward, }\AttributeTok{main =} \StringTok{"Doubs River Fish: Ward\textquotesingle{}s Clustering"}\NormalTok{,}
+     \AttributeTok{ylab =} \StringTok{"Squared Bray{-}Curtis Distance"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-24-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{env.chem }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(plot.info[,}\DecValTok{3}\SpecialCharTok{:}\DecValTok{5}\NormalTok{])}
+
+\NormalTok{fungalS }\OtherTok{\textless{}{-}}\NormalTok{ fungalBC}
+
+\NormalTok{S.dbrda }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+\FunctionTok{ordiplot}\NormalTok{(S.dbrda)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S.dbrda0 }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}} \DecValTok{1}\NormalTok{, }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+\NormalTok{S.dbrda1 }\OtherTok{\textless{}{-}} \FunctionTok{dbrda}\NormalTok{(fungalS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\FunctionTok{as.data.frame}\NormalTok{(env.chem))}
+
+\NormalTok{S.dbrda }\OtherTok{\textless{}{-}} \FunctionTok{ordiR2step}\NormalTok{(S.dbrda0, S.dbrda1, }\AttributeTok{perm.max =} \DecValTok{999}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Step: R2.adj= 0 
+## Call: fungalS ~ 1 
+##  
+##                 R2.adjusted
+## + N              0.06691130
+## + C              0.05288678
+## <All variables>  0.03925139
+## <none>           0.00000000
+## + P             -0.01076498
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plant }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"alpine\_ridge\_data/veg.csv"}\NormalTok{)}
+\NormalTok{plant }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(plant)}
+\FunctionTok{colnames}\NormalTok{(plant) }\OtherTok{\textless{}{-}}\NormalTok{ plant[}\DecValTok{1}\NormalTok{,]}
+\NormalTok{plant }\OtherTok{\textless{}{-}}\NormalTok{ plant[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{,]}
+
+\NormalTok{plot.info}\SpecialCharTok{$}\NormalTok{num.rock }\OtherTok{\textless{}{-}}\NormalTok{ plant[,}\DecValTok{49}\NormalTok{]}
+\NormalTok{plant }\OtherTok{\textless{}{-}}\NormalTok{ plant[,}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{48}\NormalTok{,}\DecValTok{49}\NormalTok{)]}
+
+\NormalTok{plant.num }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{10}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{47}\NormalTok{))}
+\FunctionTok{colnames}\NormalTok{(plant.num) }\OtherTok{\textless{}{-}} \FunctionTok{colnames}\NormalTok{(plant)}
+\FunctionTok{rownames}\NormalTok{(plant.num) }\OtherTok{\textless{}{-}} \FunctionTok{rownames}\NormalTok{(plant)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(plant))\{}
+\NormalTok{  plant.num[,i] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(plant[,i]))}
+\NormalTok{\}}
+
+
+\NormalTok{plot.info}\SpecialCharTok{$}\NormalTok{plant.richness }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{((plant.num }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{*} \DecValTok{1}\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(lmerTest)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'lmerTest' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: lme4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'lme4' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: Matrix
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'lmerTest'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:lme4':
+## 
+##     lmer
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:stats':
+## 
+##     step
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(car)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'car' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: carData
+\end{verbatim}
+
+\begin{verbatim}
+## Registered S3 methods overwritten by 'car':
+##   method                          from
+##   influence.merMod                lme4
+##   cooks.distance.influence.merMod lme4
+##   dfbeta.influence.merMod         lme4
+##   dfbetas.influence.merMod        lme4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#richness.lm \textless{}{-} lm(data = plot.info, richness \textasciitilde{} C + P + N + num.rock + plant.richness)}
+\CommentTok{\#summary(richness.lm)}
+\CommentTok{\# mixed model}
+\CommentTok{\#richness.lm \textless{}{-} lmer(data = plot.info, richness \textasciitilde{} C + P + N+ (1|num.rock))}
+\CommentTok{\#anv \textless{}{-} Anova(richness.lm, type = "III")}
+\CommentTok{\#print(anv)}
+\CommentTok{\# with plant richness mixed model}
+\CommentTok{\#richness.lm.1 \textless{}{-} lmer(data = plot.info, richness \textasciitilde{} C * P * N * plant.richness + (1|num.rock))}
+\CommentTok{\#anv.1 \textless{}{-} Anova(richness.lm, type = "III")}
+\CommentTok{\#print(anv.1)}
+\CommentTok{\# fixed model}
+\NormalTok{richness.lm.fixed }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\AttributeTok{data =}\NormalTok{ plot.info, richness }\SpecialCharTok{\textasciitilde{}}\NormalTok{ C }\SpecialCharTok{+}\NormalTok{ P }\SpecialCharTok{+}\NormalTok{ N }\SpecialCharTok{+}\NormalTok{ plant.richness)}
+\FunctionTok{summary}\NormalTok{(richness.lm.fixed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = richness ~ C + P + N + plant.richness, data = plot.info)
+## 
+## Residuals:
+##       S1       S2       S3       S4       S5       R1       R2       R3 
+##  21.3378 -15.2274   0.1771   9.9148  -9.3500   1.2089   3.5697  14.5221 
+##       R4       R5 
+## -23.1019  -3.0511 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)     265.922     51.732   5.140  0.00364 **
+## C                 2.601      3.515   0.740  0.49270   
+## P               -16.902     16.801  -1.006  0.36059   
+## N               -42.586     52.329  -0.814  0.45275   
+## plant.richness   -2.842      3.526  -0.806  0.45691   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 18.12 on 5 degrees of freedom
+## Multiple R-squared:  0.5117, Adjusted R-squared:  0.1211 
+## F-statistic:  1.31 on 4 and 5 DF,  p-value: 0.3797
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{anv.fixed }\OtherTok{\textless{}{-}} \FunctionTok{Anova}\NormalTok{(richness.lm.fixed, }\AttributeTok{type =} \StringTok{"III"}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(anv.fixed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Anova Table (Type III tests)
+## 
+## Response: richness
+##                Sum Sq Df F value   Pr(>F)   
+## (Intercept)    8672.3  1 26.4233 0.003644 **
+## C               179.6  1  0.5472 0.492701   
+## P               332.2  1  1.0121 0.360585   
+## N               217.4  1  0.6623 0.452747   
+## plant.richness  213.2  1  0.6495 0.456906   
+## Residuals      1641.0  5                    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# with plant richness model}
+\CommentTok{\#richness.lm.fixed \textless{}{-} lm(data = plot.info, richness \textasciitilde{} C + P + N + site + plant.richness + Location + C:P + C:N + P:N + plant.richness + plant.richness:N + plant.richness:C + plant.richness:P )}
+\CommentTok{\#summary(richness.lm.fixed)}
+\CommentTok{\#anv.fixed \textless{}{-} Anova(richness.lm.fixed, type = "III")}
+\CommentTok{\#print(anv.fixed)}
+\CommentTok{\# fixed model}
+\CommentTok{\#richness.lm.fixed \textless{}{-} lm(data = plot.info, richness \textasciitilde{} C + P + N + Location)}
+\CommentTok{\#anv.fixed \textless{}{-} Anova(richness.lm.fixed, type = "III")}
+\CommentTok{\#print(anv.fixed)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{average }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{1}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{807}\NormalTok{))}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{ncol}\NormalTok{(rarefied\_site\_species))\{}
+\NormalTok{  average[,i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(rarefied\_site\_species[,i])}
+\NormalTok{\}}
+
+\FunctionTok{colnames}\NormalTok{(average) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(genus[,}\DecValTok{1}\NormalTok{])}
+\NormalTok{average }\OtherTok{\textless{}{-}} \FunctionTok{t}\NormalTok{(average)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Soil chemistry across snowbed vs ridge}
+
+\FunctionTok{rownames}\NormalTok{(env) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{48}\NormalTok{)}
+\NormalTok{env.comp }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{6}\NormalTok{))}
+\FunctionTok{rownames}\NormalTok{(env.comp) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Snowbed"}\NormalTok{,}\StringTok{"Ridge"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(env.comp) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"P.Mean"}\NormalTok{,}\StringTok{"P.std.error"}\NormalTok{,}\StringTok{"N.Mean"}\NormalTok{,}\StringTok{"N.std.error"}\NormalTok{,}\StringTok{"C.Mean"}\NormalTok{,}\StringTok{"C.std.error"}\NormalTok{)}
+
+\CommentTok{\#Calculating means}
+\NormalTok{env.comp}\SpecialCharTok{$}\NormalTok{P.Mean }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{25}\NormalTok{,}\DecValTok{2}\NormalTok{]),}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{48}\NormalTok{,}\DecValTok{2}\NormalTok{]))}
+\NormalTok{env.comp}\SpecialCharTok{$}\NormalTok{N.Mean }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{25}\NormalTok{,}\DecValTok{3}\NormalTok{]),}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{48}\NormalTok{,}\DecValTok{3}\NormalTok{]))}
+\NormalTok{env.comp}\SpecialCharTok{$}\NormalTok{C.Mean }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{25}\NormalTok{,}\DecValTok{4}\NormalTok{]),}\FunctionTok{mean}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{48}\NormalTok{,}\DecValTok{4}\NormalTok{]))}
+
+\CommentTok{\#Calculating standard error}
+\NormalTok{sem }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x)\{}
+  \FunctionTok{sd}\NormalTok{(x)}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{length}\NormalTok{(x))}
+\NormalTok{  \}}
+
+\NormalTok{env.comp}\SpecialCharTok{$}\NormalTok{P.std.error }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{sem}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{25}\NormalTok{,}\DecValTok{2}\NormalTok{]),}\FunctionTok{sem}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{48}\NormalTok{,}\DecValTok{2}\NormalTok{]))}
+\NormalTok{env.comp}\SpecialCharTok{$}\NormalTok{N.std.error }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{sem}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{25}\NormalTok{,}\DecValTok{3}\NormalTok{]),}\FunctionTok{sem}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{48}\NormalTok{,}\DecValTok{3}\NormalTok{]))}
+\NormalTok{env.comp}\SpecialCharTok{$}\NormalTok{C.std.error }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{sem}\NormalTok{(env[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{25}\NormalTok{,}\DecValTok{4}\NormalTok{]),}\FunctionTok{sem}\NormalTok{(env[}\DecValTok{26}\SpecialCharTok{:}\DecValTok{48}\NormalTok{,}\DecValTok{4}\NormalTok{]))}
+
+\NormalTok{env.data }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{6}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{4}\NormalTok{))}
+\FunctionTok{colnames}\NormalTok{(env.data) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Mean"}\NormalTok{,}\StringTok{"std.error"}\NormalTok{,}\StringTok{"element"}\NormalTok{, }\StringTok{"site"}\NormalTok{)}
+\NormalTok{env.data}\SpecialCharTok{$}\NormalTok{element }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}P\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}P\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}N\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}N\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}C\textquotesingle{}}\NormalTok{)}
+\NormalTok{env.data}\SpecialCharTok{$}\NormalTok{site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}R\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}S\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}R\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}S\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}R\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}S\textquotesingle{}}\NormalTok{)}
+\NormalTok{env.data}\SpecialCharTok{$}\NormalTok{Mean }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(env.comp[}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{],env.comp[}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{],env.comp[}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{],env.comp[}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{],env.comp[}\DecValTok{2}\NormalTok{,}\DecValTok{5}\NormalTok{],env.comp[}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{])}
+\NormalTok{env.data}\SpecialCharTok{$}\NormalTok{std.error }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(env.comp[}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{],env.comp[}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{],env.comp[}\DecValTok{2}\NormalTok{,}\DecValTok{4}\NormalTok{],env.comp[}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{],env.comp[}\DecValTok{2}\NormalTok{,}\DecValTok{6}\NormalTok{],env.comp[}\DecValTok{1}\NormalTok{,}\DecValTok{6}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{env.plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(env.data, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ element, }\AttributeTok{y =}\NormalTok{ Mean, }\AttributeTok{color =}\NormalTok{ site))}
+\NormalTok{env.plot }\OtherTok{\textless{}{-}}\NormalTok{ env.plot }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{()}
+\NormalTok{env.plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(env.plot)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{OTU-Abundance-Visualization_files/figure-latex/unnamed-chunk-29-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{richnesses }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{20}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{))}
+\FunctionTok{colnames}\NormalTok{(richnesses) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}richness\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}sample\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}site\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{richnesses}\SpecialCharTok{$}\NormalTok{richness }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(plot.info}\SpecialCharTok{$}\NormalTok{richness, plot.info}\SpecialCharTok{$}\NormalTok{plant.richness)}
+\NormalTok{richnesses}\SpecialCharTok{$}\NormalTok{sample }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"fungal"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\StringTok{"plant"}\NormalTok{, }\DecValTok{10}\NormalTok{))}
+\NormalTok{richnesses}\SpecialCharTok{$}\NormalTok{site }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"S1"}\NormalTok{,}\StringTok{"S2"}\NormalTok{,}\StringTok{"S3"}\NormalTok{,}\StringTok{"S4"}\NormalTok{,}\StringTok{"S5"}\NormalTok{,}\StringTok{"R1"}\NormalTok{,}\StringTok{"R2"}\NormalTok{,}\StringTok{"R3"}\NormalTok{,}\StringTok{"R4"}\NormalTok{,}\StringTok{"R5"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
