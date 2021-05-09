@@ -1,0 +1,632 @@
+---
+title: "Diversity Project Abundances"
+author: "Joshua"
+date: "4/1/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+rm(list=ls())
+dev.off ()
+package.list <- c('vegan', 'data.table', 'reshape2', 'ggplot2', 'ape')
+for (package in package.list){
+  if (!require(package, character.only = TRUE, quietly = TRUE)) {
+    install.packages(package)
+    library(package,character.only = TRUE)
+  }
+}
+```
+
+# Importing site-species data into R
+
+```{r}
+site_species <- read.csv("alpine_ridge_data/OTU_table.csv", header = TRUE)
+site_species.t <- t(site_species)
+```
+
+#Rarefaction
+
+```{r}
+#Visualization of rarecurves for all samples
+richness <- rowSums((site_species.t > 0) * 1)
+print(richness)
+minimum.r <- min(rowSums(site_species.t))
+rarefy <- rarefy(x = site_species.t, sample = minimum.r, se = TRUE)
+
+rarecurve(x = site_species.t, step = 20, col = "blue", cex = .6, las = 1)
+abline(0, 1, col = 'red')
+text(200, 100, "1:1", pos = 2, col = 'red')
+```
+
+```{r}
+#Rarefaction of samples
+site_species.r <- rrarefy(site_species.t, 1000)
+
+richness <- rowSums((site_species.r > 0) * 1)
+minimum.r <- min(rowSums(site_species.r))
+rarefy <- rarefy(x = site_species.r, sample = minimum.r, se = TRUE)
+
+rarecurve(x = site_species.r, step = 20, col = "blue", cex = .6, las = 1)
+abline(0, 1, col = 'red')
+text(200, 100, "1:1", pos = 2, col = 'red')
+```
+
+```{r}
+#Remove samples containing less than 1000 reads (R1.14, R1.55.2, R2.25, S2.78.2)
+
+df.site_species.r <- as.data.frame(site_species.r)
+rarefied_site_species <- data.frame()
+
+for (i in 1:nrow(df.site_species.r)){
+  if (rowSums(df.site_species.r[i,]) >= 1000){
+    rarefied_site_species <- rbind(rarefied_site_species, df.site_species.r[i,])
+  }
+}
+
+#Visualizing
+richness <- rowSums((rarefied_site_species > 0) * 1)
+minimum.r <- min(rowSums(rarefied_site_species))
+rarefy <- rarefy(x = rarefied_site_species, sample = minimum.r, se = TRUE)
+
+rarecurve(x = rarefied_site_species, step = 20, col = "blue", cex = .6, las = 1)
+abline(0, 1, col = 'red')
+text(200, 100, "1:1", pos = 2, col = 'red')
+```
+
+
+#Removing samples to match environmental data downstream
+
+```{r}
+rarefied_site_species <- rarefied_site_species[-c(38,43,48),]
+```
+
+
+# Importing Environmental Data
+
+```{r}
+env <- read.csv("alpine_ridge_data/variables.txt", header = TRUE, sep = "\t")
+env <- env[-c(26,31),]
+```
+
+
+# Calculating Bray-Curtis Beta-Diversity 
+
+```{r}
+fungalBC <- vegdist(rarefied_site_species, method = "bray")
+```
+
+
+# Cluster Analysis of Fungal Communities
+
+```{r} 
+#Performing Cluster Analysis
+fungal.ward <- hclust(fungalBC, method = "ward.D2")
+
+#Plotting Cluster
+par(mar = c(1,5,2,2) + .1)
+plot(fungal.ward, main = "Doubs River Fish: Ward's Clustering",
+     ylab = "Squared Bray-Curtis Distance")
+```
+
+
+# PCoA of Fungal Communities
+
+```{r}
+fungal.pcoa <- cmdscale(fungalBC, eig = TRUE, k = 3)
+
+explainvar1 <- round(fungal.pcoa$eig[1]/sum(fungal.pcoa$eig), 3) * 100
+explainvar2 <- round(fungal.pcoa$eig[2]/sum(fungal.pcoa$eig), 3) * 100
+explainvar3 <- round(fungal.pcoa$eig[3]/sum(fungal.pcoa$eig), 3) * 100
+sum.eig <- sum(explainvar1, explainvar2, explainvar3)
+
+test <- rarefied_site_species
+
+test$Site <- c(rep("S1", 5), rep("S2", 5), rep("S3", 5), rep("S4", 5), rep("S5", 5), rep("R1", 4), rep("R2", 4), rep("R3", 5), rep("R4", 5), rep("R5", 5))
+
+test$Location <- c(rep("Snowbed", 25), rep("Ridge", 23))
+
+## Plotting
+# make a fake pcoa
+dist      <- vegdist(test[,1:807],  method = "bray")
+fake_pcoa <- pcoa(dist)
+#summary(fake_pcoa) 
+
+# get the out of pcoa 
+# site scores = samples 
+sitescores   <- fake_pcoa$vectors #we need only the first two axis 
+newdata <- as.data.frame(cbind(sitescores[,1:2], Location = test$Location, Site = test$Site))
+
+#one way 
+bray <- ggplot(newdata, aes(y = as.numeric(Axis.1), x = as.numeric(Axis.2), shape = Location, color = Site))
+bray <- bray + geom_hline(yintercept = 0, color = "grey", linetype = "dashed")
+bray <- bray + geom_vline(xintercept = 0, color = "grey", linetype = "dashed")
+bray <- bray + geom_point(size = 3, alpha = .5)
+bray <- bray + theme_bw()
+bray <- bray + labs(y = paste("PCoA 1 (", explainvar1, "%)", sep = ""), x = paste("PCoA 2 (", explainvar2, "%)", sep = ""))
+bray
+```
+
+# How much variance is explained by site location (Bray-Curtis)
+
+```{r}
+site <- c(rep("S1", 5), rep("S2", 5), rep("S3", 5), rep("S4", 5), rep("S5", 5), rep("R1", 4), rep("R2", 4), rep("R3", 5), rep("R4", 5), rep("R5", 5))
+
+adonis(rarefied_site_species ~ env$V + site, permutations = 999)
+
+```
+
+
+# Calculating Sorensen Beta-Diversity
+
+```{r}
+fungalS <- vegdist(rarefied_site_species, method = "bray", binary = "TRUE")
+```
+
+
+# Cluster Analysis of Fungal Communities
+
+```{r} 
+#Performing Cluster Analysis
+fungal.wardS <- hclust(fungalS, method = "ward.D2")
+
+#Plotting Cluster
+par(mar = c(1,5,2,2) + .1)
+plot(fungal.wardS, main = "Doubs River Fish: Ward's Clustering",
+     ylab = "Squared Sørensen's Distance")
+```
+
+# PCoA of Fungal Communities
+
+```{r}
+fungal.S.pcoa <- cmdscale(fungalS, eig = TRUE, k = 3)
+
+explainvar1 <- round(fungal.S.pcoa$eig[1]/sum(fungal.pcoa$eig), 3) * 100
+explainvar2 <- round(fungal.S.pcoa$eig[2]/sum(fungal.pcoa$eig), 3) * 100
+explainvar3 <- round(fungal.S.pcoa$eig[3]/sum(fungal.pcoa$eig), 3) * 100
+sum.eig <- sum(explainvar1, explainvar2, explainvar3)
+
+## Plotting
+# make a fake pcoa
+dist      <- vegdist(test[,1:807],  method = "bray", binary = TRUE)
+fake_pcoa <- pcoa(dist)
+#summary(fake_pcoa) 
+
+# get the out of pcoa 
+# site scores = samples 
+sitescores   <- fake_pcoa$vectors #we need only the first two axis 
+newdata <- as.data.frame(cbind(sitescores[,1:2], Location = test$Location, Site = test$Site))
+
+#one way 
+soren <- ggplot(newdata, aes(y = as.numeric(Axis.1), x = as.numeric(Axis.2), shape = Location, color = Site))
+soren <- soren + geom_hline(yintercept = 0, color = "grey", linetype = "dashed")
+soren <- soren + geom_vline(xintercept = 0, color = "grey", linetype = "dashed")
+soren <- soren + geom_point(size = 3, alpha = .5)
+soren <- soren + theme_bw()
+soren <- soren + labs(y = paste("PCoA 1 (", explainvar1, "%)", sep = ""), x = paste("PCoA 2 (", explainvar2, "%)", sep = ""))
+soren
+```
+
+
+# How much variance is explained by site location (Sorensen)
+
+```{r}
+site <- c(rep("S1", 5), rep("S2", 5), rep("S3", 5), rep("S4", 5), rep("S5", 5), rep("R1", 4), rep("R2", 4), rep("R3", 5), rep("R4", 5), rep("R5", 5))
+
+adonis(rarefied_site_species ~ env$V + site, method = "bray", binary = TRUE, permutations = 999)
+```
+
+
+## Relative Abundance Visualization
+
+```{r}
+genus <- read.csv("alpine_ridge_data/genus_table.csv", header = TRUE)
+#convert rownames into column
+
+genus.1 <- as.data.frame(t(rarefied_site_species))
+setDT(genus.1, keep.rownames = TRUE)[]
+
+# Converting to Long Format
+genus_long <- melt(genus.1, id.vars = "rn", variable.name = "Sample")
+
+# Creating Graph of data
+genus_graph <- ggplot(data = genus_long, mapping = aes(x = Sample,  y = value, fill = rn))
+genus_graph <- genus_graph + geom_bar(stat="identity")
+genus_graph <- genus_graph + labs(y = "Relative Abundance", x = "Sample", title = "Genus Relative Abundances") + theme_classic()
+genus_graph <- genus_graph + theme(legend.position = "None")
+genus_graph <- genus_graph + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+genus_graph
+```
+
+
+# Importing environmental data and testing for significance 
+
+```{r}
+env <- read.csv("alpine_ridge_data/variables.txt", header = TRUE, sep = "\t")
+env <- env[-c(26,31),]
+
+site <- c(rep("S1", 5), rep("S2", 5), rep("S3", 5), rep("S4", 5), rep("S5", 5), rep("R1", 4), rep("R2", 4), rep("R3", 5), rep("R4", 5), rep("R5", 5))
+adonis(rarefied_site_species ~ env$V + site, method = "bray", permutations = 999)
+```
+
+
+# Constructing Constrained Ordination
+
+```{r}
+env.chem <- as.matrix(env[,c(2:4)])
+
+
+S.dbrda <- dbrda(fungalS ~ ., as.data.frame(env.chem))
+ordiplot(S.dbrda)
+
+S.dbrda0 <- dbrda(fungalS ~ 1, as.data.frame(env.chem))
+S.dbrda1 <- dbrda(fungalS ~ ., as.data.frame(env.chem))
+
+S.dbrda <- ordiR2step(S.dbrda0, S.dbrda1, perm.max = 999)
+
+permutest(S.dbrda, permutations = 999)
+envfit(S.dbrda, env.chem, permutations = 999)
+
+#Calculating explained variation on axes
+S.explainvar1 <- round(S.dbrda$CCA$eig[1]/
+                             sum(c(S.dbrda$CCA$eig, S.dbrda$CA$eig)),
+                           3 ) * 100
+S.explainvar2 <- round(S.dbrda$CCA$eig[2]/
+                             sum(c(S.dbrda$CCA$eig, S.dbrda$CA$eig)),
+                           3 ) * 100
+
+#Plotting constrained ordination results
+par(mar = c(5,5,4,4) + .1)
+
+plot(scores(S.dbrda, display = "wa"), xlim = c(-2, 2.1), ylim = c(-2.3, 2.0), 
+     xlab = paste("dbRDA 1 (", S.explainvar1, "%)", sep = ""),
+     ylab = paste("dbRDA 2 (", S.explainvar2, "%)", sep = ""),
+     pch = 16, cex = 2.0, type = "n", cex.lab = 1.5, cex.axis = 1.2, axes = FALSE
+     )
+
+axis(side = 1, labels = T, lwd.ticks = 2, cex.axis = 1.2, las = 1)
+axis(side = 2, labels = T, lwd.ticks = 2, cex.axis = 1.2, las = 1)
+abline(h = 0, v = 0, lty = 3)
+box(lwd = 2)
+
+points(scores(S.dbrda, display = "wa"),
+       pch = 19, cex = 3, bg = "gray", col = "gray")
+text(scores(S.dbrda, display = "wa"),
+     labels = row.names(scores(S.dbrda, display = "wa")))
+
+#Plotting vectors for influence of environmental factors
+vectors <- scores(S.dbrda, display = "bp")
+arrows(0, 0, vectors[,1], vectors[,2],
+       lwd = 2, lty = 1, length = .2, col = "red")
+text(vectors[,1], vectors[,2], pos = 3, 
+     labels = row.names(vectors), col = "red")
+axis(side = 3, lwd.ticks = 2, cex.axis = 1.2, las = 1, col = "red", lwd = 2.2,
+     at = pretty(range(vectors[,1])) * 2, labels = pretty(range(vectors[,1])))
+axis(side = 4, lwd.ticks = 2, cex.axis = 1.2, las = 1, col = "red", lwd = 2.2,
+     at = pretty(range(vectors[,2])) * 2, labels = pretty(range(vectors[,2])))
+```
+
+
+
+```{r}
+env.chem <- as.matrix(env[,c(2:4)])
+
+fungalS <- fungalBC
+
+S.dbrda <- dbrda(fungalS ~ ., as.data.frame(env.chem))
+ordiplot(S.dbrda)
+
+S.dbrda0 <- dbrda(fungalS ~ 1, as.data.frame(env.chem))
+S.dbrda1 <- dbrda(fungalS ~ ., as.data.frame(env.chem))
+
+S.dbrda <- ordiR2step(S.dbrda0, S.dbrda1, perm.max = 999)
+```
+Sorensen distance is influenced by Nitrogen concentration in the soil but BC is not influenced by Nitrogren, Carbon, or Phosphorus 
+
+
+# Effect of plant abundance and diversity on fungal community structure
+
+```{r}
+# Making new dataframe with summary of all statistics
+plot.info <- as.data.frame(matrix(nrow = 10, ncol=1))
+plot.info <- plot.info[,-1]
+plot.info$Location <- c(rep("Ridge", 5), rep("Snowbed", 5))
+rownames(plot.info) <- c("S1","S2","S3","S4","S5","R1","R2","R3","R4","R5")
+plot.info$site <- c("S1","S2","S3","S4","S5","R1","R2","R3","R4","R5")
+
+# Adding average soil nutrients
+plot.info$P <- c(mean(env[1:5, 2]), mean(env[6:10, 2]), mean(env[11:15, 2]), mean(env[16:20, 2]), mean(env[21:25, 2]), mean(env[26:29, 2]),mean(env[30:33, 2]), mean(env[34:38, 2]), mean(env[39:43, 2]), mean(env[44:48, 2]))
+plot.info$N <- c(mean(env[1:5, 3]), mean(env[6:10, 3]), mean(env[11:15, 3]), mean(env[16:20, 3]), mean(env[21:25, 3]), mean(env[26:29, 3]),mean(env[30:33, 3]), mean(env[34:38, 3]), mean(env[39:43, 3]), mean(env[44:48, 3]))
+plot.info$C <- c(mean(env[1:5, 4]), mean(env[6:10, 4]), mean(env[11:15, 4]), mean(env[16:20, 4]), mean(env[21:25, 4]), mean(env[26:29, 4]),mean(env[30:33, 4]), mean(env[34:38, 4]), mean(env[39:43, 4]), mean(env[44:48, 4]))
+
+# Adding alpha diversity data
+rarefied.sites <- as.data.frame((matrix(nrow = 10, ncol = 807)))
+for (i in 1:(ncol(rarefied_site_species))){
+  rarefied.sites[,i] <- c(sum(rarefied_site_species[1:5, i]), sum(rarefied_site_species[6:10, i]), sum(rarefied_site_species[11:15, i]), sum(rarefied_site_species[16:20, i]), sum(rarefied_site_species[21:25, i]), sum(rarefied_site_species[26:29, i]),sum(rarefied_site_species[30:33, i]), sum(rarefied_site_species[34:38, i]), sum(rarefied_site_species[39:43, i]), sum(rarefied_site_species[44:48, i]))
+}
+rownames(rarefied.sites) <- c("S1","S2","S3","S4","S5","R1","R2","R3","R4","R5")
+
+# Species richness
+plot.info$richness <- rowSums((rarefied.sites > 0) * 1)
+
+
+plot.info <- as.data.frame(plot.info)
+```
+
+# PCoA of Grouped Fungal Communities
+
+#Site-grouped Bray-Curtis
+```{r}
+fungalBC <- vegdist(rarefied.sites, method = "bray")
+
+fungal.pcoa <- cmdscale(fungalBC, eig = TRUE, k = 3)
+
+explainvar1 <- round(fungal.pcoa$eig[1]/sum(fungal.pcoa$eig), 3) * 100
+explainvar2 <- round(fungal.pcoa$eig[2]/sum(fungal.pcoa$eig), 3) * 100
+explainvar3 <- round(fungal.pcoa$eig[3]/sum(fungal.pcoa$eig), 3) * 100
+sum.eig <- sum(explainvar1, explainvar2, explainvar3)
+
+test <- rarefied.sites
+
+test$Site <- c("S1","S2","S3","S4","S5","R1","R2","R3","R4","R5")
+
+test$Location <- c(rep("Ridge", 5), rep("Snowbed", 5))
+
+## Plotting
+# make a fake pcoa
+dist      <- vegdist(test[,1:807],  method = "bray")
+fake_pcoa <- pcoa(dist)
+#summary(fake_pcoa) 
+
+# get the out of pcoa 
+# site scores = samples 
+sitescores   <- fake_pcoa$vectors #we need only the first two axis 
+newdata <- as.data.frame(cbind(sitescores[,1:2], Location = test$Location, Site = test$Site))
+
+#one way 
+bray <- ggplot(newdata, aes(y = as.numeric(Axis.1), x = as.numeric(Axis.2), shape = Location, color = Site))
+bray <- bray + geom_hline(yintercept = 0, color = "grey", linetype = "dashed")
+bray <- bray + geom_vline(xintercept = 0, color = "grey", linetype = "dashed")
+bray <- bray + geom_point(size = 3, alpha = .5)
+bray <- bray + theme_bw()
+bray <- bray + labs(y = paste("PCoA 1 (", explainvar1, "%)", sep = ""), x = paste("PCoA 2 (", explainvar2, "%)", sep = ""))
+bray
+```
+
+```{r}
+#Performing Cluster Analysis
+fungal.ward <- hclust(fungalBC, method = "ward.D2")
+
+#Plotting Cluster
+par(mar = c(1,5,2,2) + .1)
+plot(fungal.ward, main = "Doubs River Fish: Ward's Clustering",
+     ylab = "Squared Sørensen's Distance")
+```
+
+# Site-grouped Sorensen
+```{r}
+fungalBC <- vegdist(rarefied.sites, method = "bray", binary = TRUE)
+
+fungal.pcoa <- cmdscale(fungalBC, eig = TRUE, k = 3)
+
+explainvar1 <- round(fungal.pcoa$eig[1]/sum(fungal.pcoa$eig), 3) * 100
+explainvar2 <- round(fungal.pcoa$eig[2]/sum(fungal.pcoa$eig), 3) * 100
+explainvar3 <- round(fungal.pcoa$eig[3]/sum(fungal.pcoa$eig), 3) * 100
+sum.eig <- sum(explainvar1, explainvar2, explainvar3)
+
+test <- rarefied.sites
+
+test$Site <- c("S1","S2","S3","S4","S5","R1","R2","R3","R4","R5")
+
+test$Location <- c(rep("Ridge", 5), rep("Snowbed", 5))
+
+## Plotting
+# make a fake pcoa
+dist      <- vegdist(test[,1:807],  method = "bray", binary = TRUE)
+fake_pcoa <- pcoa(dist)
+#summary(fake_pcoa) 
+
+# get the out of pcoa 
+# site scores = samples 
+sitescores   <- fake_pcoa$vectors #we need only the first two axis 
+newdata <- as.data.frame(cbind(sitescores[,1:2], Location = test$Location, Site = test$Site))
+
+#one way 
+bray <- ggplot(newdata, aes(y = as.numeric(Axis.1), x = as.numeric(Axis.2), shape = Location, color = Site))
+bray <- bray + geom_hline(yintercept = 0, color = "grey", linetype = "dashed")
+bray <- bray + geom_vline(xintercept = 0, color = "grey", linetype = "dashed")
+bray <- bray + geom_point(size = 3, alpha = .5)
+bray <- bray + theme_bw()
+bray <- bray + labs(y = paste("PCoA 1 (", explainvar1, "%)", sep = ""), x = paste("PCoA 2 (", explainvar2, "%)", sep = ""))
+bray
+```
+
+```{r}
+#Performing Cluster Analysis
+fungal.ward <- hclust(fungalBC, method = "ward.D2")
+
+#Plotting Cluster
+par(mar = c(1,5,2,2) + .1)
+plot(fungal.ward, main = "Doubs River Fish: Ward's Clustering",
+     ylab = "Squared Bray-Curtis Distance")
+```
+
+```{r}
+env.chem <- as.matrix(plot.info[,3:5])
+
+fungalS <- fungalBC
+
+S.dbrda <- dbrda(fungalS ~ ., as.data.frame(env.chem))
+ordiplot(S.dbrda)
+
+S.dbrda0 <- dbrda(fungalS ~ 1, as.data.frame(env.chem))
+S.dbrda1 <- dbrda(fungalS ~ ., as.data.frame(env.chem))
+
+S.dbrda <- ordiR2step(S.dbrda0, S.dbrda1, perm.max = 999)
+
+
+```
+
+```{r}
+plant <- read.csv("alpine_ridge_data/veg.csv")
+plant <- t(plant)
+colnames(plant) <- plant[1,]
+plant <- plant[-1,]
+
+plot.info$num.rock <- plant[,49]
+plant <- plant[,-c(48,49)]
+
+plant.num <- as.data.frame(matrix(nrow = 10, ncol = 47))
+colnames(plant.num) <- colnames(plant)
+rownames(plant.num) <- rownames(plant)
+
+for (i in 1:ncol(plant)){
+  plant.num[,i] <- c(as.numeric(plant[,i]))
+}
+
+
+plot.info$plant.richness <- rowSums((plant.num > 0) * 1)
+
+library(lmerTest)
+library(car)
+#richness.lm <- lm(data = plot.info, richness ~ C + P + N + num.rock + plant.richness)
+#summary(richness.lm)
+# mixed model
+#richness.lm <- lmer(data = plot.info, richness ~ C + P + N+ (1|num.rock))
+#anv <- Anova(richness.lm, type = "III")
+#print(anv)
+# with plant richness mixed model
+#richness.lm.1 <- lmer(data = plot.info, richness ~ C * P * N * plant.richness + (1|num.rock))
+#anv.1 <- Anova(richness.lm, type = "III")
+#print(anv.1)
+# fixed model
+richness.lm.fixed <- lm(data = plot.info, richness ~ C + P + N + plant.richness)
+summary(richness.lm.fixed)
+anv.fixed <- Anova(richness.lm.fixed, type = "III")
+print(anv.fixed)
+# with plant richness model
+#richness.lm.fixed <- lm(data = plot.info, richness ~ C + P + N + site + plant.richness + Location + C:P + C:N + P:N + plant.richness + plant.richness:N + plant.richness:C + plant.richness:P )
+#summary(richness.lm.fixed)
+#anv.fixed <- Anova(richness.lm.fixed, type = "III")
+#print(anv.fixed)
+# fixed model
+#richness.lm.fixed <- lm(data = plot.info, richness ~ C + P + N + Location)
+#anv.fixed <- Anova(richness.lm.fixed, type = "III")
+#print(anv.fixed)
+```
+
+```{r}
+average <- as.data.frame(matrix(nrow = 1, ncol = 807))
+
+
+for (i in 1:ncol(rarefied_site_species)){
+  average[,i] <- mean(rarefied_site_species[,i])
+}
+
+colnames(average) <- c(genus[,1])
+
+average <- t(average)
+average <- as.data.frame(average)
+
+average$num <- c(1:807)
+```
+
+```{r}
+# Soil chemistry across snowbed vs ridge
+
+rownames(env) <- c(1:48)
+env.comp <- as.data.frame(matrix(nrow = 2, ncol = 6))
+rownames(env.comp) <- c("Snowbed","Ridge")
+colnames(env.comp) <- c("P.Mean","P.std.error","N.Mean","N.std.error","C.Mean","C.std.error")
+
+#Calculating means
+env.comp$P.Mean <- c(mean(env[1:25,2]),mean(env[26:48,2]))
+env.comp$N.Mean <- c(mean(env[1:25,3]),mean(env[26:48,3]))
+env.comp$C.Mean <- c(mean(env[1:25,4]),mean(env[26:48,4]))
+
+#Calculating standard error
+sem <- function(x){
+  sd(x)/sqrt(length(x))
+  }
+
+env.comp$P.std.error <- c(sem(env[1:25,2]),sem(env[26:48,2]))
+env.comp$N.std.error <- c(sem(env[1:25,3]),sem(env[26:48,3]))
+env.comp$C.std.error <- c(sem(env[1:25,4]),sem(env[26:48,4]))
+
+env.data <- as.data.frame(matrix(nrow = 6, ncol = 4))
+colnames(env.data) <- c("Mean","std.error","element", "site")
+env.data$element <- c('P','P','N','N','C','C')
+env.data$site <- c('R','S','R','S','R','S')
+env.data$Mean <- c(env.comp[2,1],env.comp[1,1],env.comp[2,3],env.comp[1,3],env.comp[2,5],env.comp[1,5])
+env.data$std.error <- c(env.comp[2,2],env.comp[1,2],env.comp[2,4],env.comp[1,4],env.comp[2,6],env.comp[1,6])
+```
+
+```{r}
+env.plot <- ggplot(env.data, aes(x = element, y = Mean, color = site))
+env.plot <- env.plot + geom_point()
+env.plot
+print(env.plot)
+```
+
+
+```{r}
+richnesses <- as.data.frame(matrix(nrow = 20, ncol = 3))
+colnames(richnesses) <- c('richness','sample','site')
+
+richnesses$richness <- c(plot.info$richness, plot.info$plant.richness)
+richnesses$sample <- c(rep("fungal", 10), rep("plant", 10))
+richnesses$site <- c("S1","S2","S3","S4","S5","R1","R2","R3","R4","R5")
+```
+
+```{r}
+rich <- ggplot(data = richnesses, aes(x = site, y = richness, shape = sample))
+rich <- rich + geom_point(aes(size = 4))
+rich <- rich + theme_classic()
+print(rich)
+```
+
+```{r}
+lmc <- lm(N ~ site, data = plot.info)
+anvc <- anova(lmc)
+print(anvc)
+```
+
+```{r}
+genus.1 <- as.data.frame(rarefied_site_species)
+colnames(genus.1) <- genus$Genus
+genus.1 <- t(genus.1)
+rownames(genus.1) <- c(1:nrow(genus.1))
+
+major.taxa <- c(219, 419, 89, 708, 176, 68, 493, 222, 489, 468)
+
+genus.2 <- as.data.frame(matrix(nrow = 10, ncol = 807))
+colnames(genus.2) <- colnames(genus.1)
+genus.2 <- genus.1[c(major.taxa),]
+rownames(genus.2) <- genus[c(major.taxa),1]
+
+#setDT(genus.1, keep.rownames = TRUE)[]
+#genus.1$taxa <- rownames(genus.1)
+
+#imp.fung <- c("Russula.3", "X.Phialocephala.15", "X.Cortinarius.12", "X.Articulospora.23", "unknown.50", "X.Laccaria.1", "unknown.175", "Russula.6", "X.Lachnum.4", "X.Articulospora.6")
+
+#genus.2 <- as.data.frame(matrix(nrow = 0, ncol = 48))
+#for (i in 1:nrow(genus.1)){
+#  if (rownames(genus.1[i,]) == imp.fung){
+#    genus.2[(nrow(genus.2) + 1),] <- genus.1[i,]
+#  }
+#}
+#colnames(genus.2) <- colnames(genus.1)
+
+# Converting to Long Format
+genus_long <- melt(genus.2, id.vars = "rn", variable.name = "Sample")
+colnames(genus_long) <- c("Genus", "Sample", "Abundance")
+
+# Creating Graph of data
+genus_graph <- ggplot(data = genus_long, mapping = aes(x = Sample,  y = Abundance, fill = Genus))
+genus_graph <- genus_graph + geom_bar(stat="identity")
+genus_graph <- genus_graph + labs(y = "Abundance", x = "Sample", title = "Relative Abundance of top 10 Genera") + theme_classic()
+#genus_graph <- genus_graph + theme(legend.position = "None")
+genus_graph <- genus_graph + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+genus_graph
+```
